@@ -5,6 +5,8 @@
     android:orientation="horizontal"
     tools:context="com.veontomo.biser2.BeadSearchActivity">
 
+    <!--http://developer.android.com/guide/practices/tablets-and-handsets.html-->
+
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
