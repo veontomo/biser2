@@ -2,13 +2,20 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:orientation="vertical"
+              android:orientation="horizontal"
               tools:context="com.veontomo.biser2.BeadSearchActivity">
 
     <fragment
         android:id="@+id/search"
         class="com.veontomo.biser2.SearchAndHistoryFragment"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
+        android:layout_weight="2"
+        android:layout_height="match_parent"/>
+    <fragment
+        android:id="@+id/similar"
+        class="com.veontomo.biser2.SimilarBeadFragment"
+        android:layout_width="0dp"
+        android:layout_weight="1"
         android:layout_height="match_parent"/>
 
 </LinearLayout>

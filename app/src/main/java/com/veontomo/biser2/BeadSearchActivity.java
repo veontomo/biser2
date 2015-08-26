@@ -13,8 +13,8 @@ public class BeadSearchActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bead_search);
-        Fragment displayFrag = (Fragment) getFragmentManager()
-                .findFragmentById(R.id.similar_beads);
+        SimilarBeadFragment displayFrag = (SimilarBeadFragment) getFragmentManager()
+                .findFragmentById(R.id.similar);
         Log.i(Config.TAG, "fragment is null? " + (displayFrag == null));
 
     }
