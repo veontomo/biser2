@@ -6,9 +6,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.veontomo.biser2.Fragments.SearchAndHistoryFragment;
 import com.veontomo.biser2.Fragments.SimilarBeadFragment;
 
-public class BeadSearchActivity extends Activity {
+public class BeadSearchActivity extends Activity implements SearchAndHistoryFragment.OnFragmentInteractionListener {
 
     private String marker = "activity: ";
 
@@ -38,7 +39,6 @@ public class BeadSearchActivity extends Activity {
     @Override
     public void onResume() {
         super.onResume();
-        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
     }
 
     @Override
@@ -87,4 +87,11 @@ public class BeadSearchActivity extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void setSearchTerm(String str) {
+        Log.i(Config.TAG, "BeadSearchActivity: search term " + str);
+    }
+
+
 }

@@ -16,5 +16,10 @@ public class Location {
         this.color = color;
     }
 
+    @Override
+    public String toString(){
+        return this.wing + "-" + String.valueOf(this.row) + "-" + String.valueOf(this.col) + "-" + this.color;
+    }
+
 
 }

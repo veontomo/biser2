@@ -1,28 +1,25 @@
 package com.veontomo.biser2.Fragments;
 
 import android.app.Activity;
-import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.veontomo.biser2.Config;
 import com.veontomo.biser2.R;
+import com.veontomo.biser2.api.DbBeadSearcher;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {
- *
- * @link SearchAndHistoryFragment.OnFragmentInteractionListener} interface
+ * {@link SearchAndHistoryFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link SearchAndHistoryFragment#newInstance} factory method to
- * create an instance of this fragment.
  */
 public class SearchAndHistoryFragment extends Fragment {
     private final String marker = "fragment: ";
@@ -39,14 +36,21 @@ public class SearchAndHistoryFragment extends Fragment {
      */
     private ImageButton mButton;
 
-//    private OnFragmentInteractionListener mListener;
+    /**
+     * edit text view in which the search term is to be typed
+     */
+    private EditText mEditText;
+
+    private OnFragmentInteractionListener mCallback;
+
+    private final DbBeadSearcher mBeadSearcher = new DbBeadSearcher();
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         try {
-//            mListener = (OnFragmentInteractionListener) activity;
+            mCallback = (OnFragmentInteractionListener) activity;
 
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
@@ -84,10 +88,11 @@ public class SearchAndHistoryFragment extends Fragment {
         super.onStart();
         Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         this.mButton = (ImageButton) getView().findViewById(R.id.button);
+        this.mEditText = (EditText) getView().findViewById(R.id.editText);
         this.mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i(Config.TAG, "click");
+                mCallback.setSearchTerm(mEditText.getEditableText().toString());
             }
         });
     }
@@ -126,39 +131,14 @@ public class SearchAndHistoryFragment extends Fragment {
     public void onDetach() {
         Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         super.onDetach();
-//        mListener = null;
+//        mCallback = null;
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment SearchAndHistoryFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static SearchAndHistoryFragment newInstance(String param1, String param2) {
-        SearchAndHistoryFragment fragment = new SearchAndHistoryFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+
 
     public SearchAndHistoryFragment() {
         // Required empty public constructor
     }
-
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-//        if (mListener != null) {
-//            mListener.onFragmentInteraction(uri);
-//        }
-    }
-
 
 
     /**
@@ -171,9 +151,8 @@ public class SearchAndHistoryFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-//    public interface OnFragmentInteractionListener {
-//        // TODO: Update argument type and name
-//        public void onFragmentInteraction(Uri uri);
-//    }
+    public interface OnFragmentInteractionListener {
+        public void setSearchTerm(String str);
+    }
 
 }
