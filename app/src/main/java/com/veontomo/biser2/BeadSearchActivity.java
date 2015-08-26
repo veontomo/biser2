@@ -10,15 +10,61 @@ import com.veontomo.biser2.Fragments.SimilarBeadFragment;
 
 public class BeadSearchActivity extends Activity {
 
+    private String marker = "activity: ";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bead_search);
+        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         SimilarBeadFragment displayFrag = (SimilarBeadFragment) getFragmentManager()
                 .findFragmentById(R.id.similar);
         Log.i(Config.TAG, "fragment is null? " + (displayFrag == null));
 
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedBundle) {
+        super.onRestoreInstanceState(savedBundle);
+        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+    }
+
+    @Override
+    public void onPause() {
+        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        super.onPause();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle bundle) {
+        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        super.onSaveInstanceState(bundle);
+    }
+
+    @Override
+    public void onStop() {
+        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        super.onStop();
+    }
+
+    @Override
+    public void onDestroy() {
+        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        super.onDestroy();
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
