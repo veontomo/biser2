@@ -1,16 +1,22 @@
 package com.veontomo.biser2;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.Activity;
+import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class BeadSearchActivity extends AppCompatActivity {
+public class BeadSearchActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bead_search);
+        Fragment displayFrag = (Fragment) getFragmentManager()
+                .findFragmentById(R.id.similar_beads);
+        Log.i(Config.TAG, "fragment is null? " + (displayFrag == null));
+
     }
 
     @Override
