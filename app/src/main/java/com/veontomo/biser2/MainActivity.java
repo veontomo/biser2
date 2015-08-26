@@ -5,9 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.veontomo.biser2.tasks.LocationLoaderTask;
-
-import java.io.InputStream;
+import com.veontomo.biser2.Tasks.LocationLoaderTask;
 
 public class MainActivity extends AppCompatActivity {
 

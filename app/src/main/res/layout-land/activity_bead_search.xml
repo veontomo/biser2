@@ -7,13 +7,13 @@
 
     <fragment
         android:id="@+id/search"
-        class="com.veontomo.biser2.SearchAndHistoryFragment"
+        class="com.veontomo.biser2.Fragments.SearchAndHistoryFragment"
         android:layout_width="0dp"
         android:layout_weight="2"
         android:layout_height="match_parent"/>
     <fragment
         android:id="@+id/similar"
-        class="com.veontomo.biser2.SimilarBeadFragment"
+        class="com.veontomo.biser2.Fragments.SimilarBeadFragment"
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="match_parent"/>

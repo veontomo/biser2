@@ -1,11 +1,12 @@
 package com.veontomo.biser2;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.veontomo.biser2.Fragments.SimilarBeadFragment;
 
 public class BeadSearchActivity extends Activity {
 

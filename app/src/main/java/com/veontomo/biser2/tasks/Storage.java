@@ -1,4 +1,4 @@
-package com.veontomo.biser2.tasks;
+package com.veontomo.biser2.Tasks;
 
 import android.content.ContentValues;
 import android.content.Context;
