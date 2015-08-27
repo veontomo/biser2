@@ -5,9 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.veontomo.biser2.tasks.LocationLoaderTask;
-
-import java.io.InputStream;
+import com.veontomo.biser2.Tasks.BeadLoaderTask;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -15,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        LocationLoaderTask loader = new LocationLoaderTask(getApplicationContext());
+        BeadLoaderTask loader = new BeadLoaderTask(getApplicationContext());
         loader.execute("locations.txt");
     }
 

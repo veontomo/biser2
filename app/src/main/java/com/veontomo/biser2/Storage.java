@@ -1,4 +1,4 @@
-package com.veontomo.biser2.tasks;
+package com.veontomo.biser2;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,8 +6,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
+import android.util.Log;
 
-import com.veontomo.biser2.Location;
+import com.veontomo.biser2.Config;
+import com.veontomo.biser2.api.Bead;
+import com.veontomo.biser2.api.Location;
 
 import java.util.List;
 
@@ -25,7 +28,7 @@ public class Storage extends SQLiteOpenHelper {
     /**
      * Name of database that contains tables of the application
      */
-    private static final String DATABASE_NAME = "Bead";
+    private static final String DATABASE_NAME = "BeadDB";
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -50,20 +53,25 @@ public class Storage extends SQLiteOpenHelper {
     /**
      * Inserts into db given list of locations.
      */
-    public void insertLocations(List<Location> locations) {
+    public void saveBeads(List<Bead> beads) {
         SQLiteDatabase db = getWritableDatabase();
         db.beginTransaction();
         ContentValues values;
-        int size = locations.size();
+        int size = beads.size();
         Location loc;
+        Bead bead;
         for (int i = 0; i < size; i++) {
             values = new ContentValues();
-            loc = locations.get(i);
-            values.put(LocationTable.COLOR_CODE_NAME, loc.color);
-            values.put(LocationTable.WING_NAME, loc.wing);
-            values.put(LocationTable.ROW_NAME, loc.row);
-            values.put(LocationTable.COL_NAME, loc.col);
-            db.insert(LocationTable.TABLE_NAME, null, values);
+
+            bead = beads.get(i);
+            loc = bead.loc;
+            if (bead != null && loc != null) {
+                values.put(LocationTable.COLOR_CODE_NAME, bead.colorCode);
+                values.put(LocationTable.WING_NAME, loc.wing);
+                values.put(LocationTable.ROW_NAME, loc.row);
+                values.put(LocationTable.COL_NAME, loc.col);
+                db.insert(LocationTable.TABLE_NAME, null, values);
+            }
         }
         db.setTransactionSuccessful();
         db.endTransaction();
@@ -85,6 +93,36 @@ public class Storage extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return result;
+    }
+
+    /**
+     * Returns a Bead instance corresponding to given color code.
+     *
+     * @param code color code
+     */
+    public Bead beadByColor(String code) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Location loc = null;
+        Cursor cursor =
+                db.query(LocationTable.TABLE_NAME,
+                        new String[]{LocationTable.WING_NAME, LocationTable.COL_NAME, LocationTable.ROW_NAME},
+                        LocationTable.COLOR_CODE_NAME + " = ?",
+                        new String[]{String.valueOf(code)},
+                        null,
+                        null,
+                        null,
+                        null);
+
+        if (cursor.moveToFirst()) {
+            String wing = cursor.getString(cursor.getColumnIndex(LocationTable.WING_NAME));
+            int row = cursor.getInt(cursor.getColumnIndex(LocationTable.ROW_NAME));
+            int col = cursor.getInt(cursor.getColumnIndex(LocationTable.COL_NAME));
+            loc = new Location(wing, row, col);
+        }
+        Bead bead = new Bead(code, loc);
+        cursor.close();
+        db.close();
+        return bead;
     }
 
     public abstract class LocationTable implements BaseColumns {
