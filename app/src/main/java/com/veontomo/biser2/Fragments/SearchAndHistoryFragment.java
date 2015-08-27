@@ -13,9 +13,10 @@ import android.widget.ListView;
 
 import com.veontomo.biser2.Config;
 import com.veontomo.biser2.R;
+import com.veontomo.biser2.Storage;
+import com.veontomo.biser2.Tasks.BeadFinderTask;
 import com.veontomo.biser2.api.Bead;
 import com.veontomo.biser2.api.BeadAdapter;
-import com.veontomo.biser2.api.DbBeadSearcher;
 import com.veontomo.biser2.api.Location;
 
 import java.util.ArrayList;
@@ -48,9 +49,12 @@ public class SearchAndHistoryFragment extends Fragment {
      */
     private EditText mEditText;
 
+    private ListView mListView;
+
     private OnFragmentInteractionListener mCallback;
 
-    private final DbBeadSearcher mBeadSearcher = new DbBeadSearcher();
+
+    private BeadAdapter mAdapter;
 
     @Override
     public void onAttach(Activity activity) {
@@ -96,18 +100,22 @@ public class SearchAndHistoryFragment extends Fragment {
         Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         this.mButton = (ImageButton) getView().findViewById(R.id.button);
         this.mEditText = (EditText) getView().findViewById(R.id.editText);
-        this.mButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mCallback.acceptSearchTerm(mEditText.getEditableText().toString());
-            }
-        });
-        ListView lv = (ListView) getView().findViewById(R.id.searchHistory);
+        mListView = (ListView) getView().findViewById(R.id.searchHistory);
         ArrayList<Bead> list = new ArrayList<>();
         list.add(new Bead("46112", new Location("A1", 1, 2)));
         list.add(new Bead("90070", new Location("B1", 3, 7)));
         list.add(new Bead("90050", null));
-        lv.setAdapter(new BeadAdapter(getActivity().getApplicationContext(), list));
+        this.mAdapter = new BeadAdapter(getActivity().getApplicationContext(), list);
+        mListView.setAdapter(this.mAdapter);
+        this.mButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String searchTerm = mEditText.getEditableText().toString();
+                mCallback.acceptSearchTerm(searchTerm);
+                BeadFinderTask worker = new BeadFinderTask(new Storage(getActivity().getApplicationContext()), mAdapter);
+                worker.execute(searchTerm);
+            }
+        });
 
     }
 
@@ -126,6 +134,12 @@ public class SearchAndHistoryFragment extends Fragment {
     @Override
     public void onStop() {
         Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        this.mButton.setOnClickListener(null);
+        this.mListView.setAdapter(null);
+        this.mAdapter = null;
+        this.mListView = null;
+        this.mEditText = null;
+        this.mButton = null;
         super.onStop();
     }
 

@@ -1,4 +1,4 @@
-package com.veontomo.biser2.Tasks;
+package com.veontomo.biser2;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
+import android.util.Log;
 
 import com.veontomo.biser2.Config;
 import com.veontomo.biser2.api.Bead;
@@ -92,6 +93,36 @@ public class Storage extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return result;
+    }
+
+    /**
+     * Returns a Bead instance corresponding to given color code.
+     *
+     * @param code color code
+     */
+    public Bead beadByColor(String code) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Location loc = null;
+        Cursor cursor =
+                db.query(LocationTable.TABLE_NAME,
+                        new String[]{LocationTable.WING_NAME, LocationTable.COL_NAME, LocationTable.ROW_NAME},
+                        LocationTable.COLOR_CODE_NAME + " = ?",
+                        new String[]{String.valueOf(code)},
+                        null,
+                        null,
+                        null,
+                        null);
+
+        if (cursor.moveToFirst()) {
+            String wing = cursor.getString(cursor.getColumnIndex(LocationTable.WING_NAME));
+            int row = cursor.getInt(cursor.getColumnIndex(LocationTable.ROW_NAME));
+            int col = cursor.getInt(cursor.getColumnIndex(LocationTable.COL_NAME));
+            loc = new Location(wing, row, col);
+        }
+        Bead bead = new Bead(code, loc);
+        cursor.close();
+        db.close();
+        return bead;
     }
 
     public abstract class LocationTable implements BaseColumns {

@@ -8,6 +8,7 @@ import android.view.MenuItem;
 
 import com.veontomo.biser2.Fragments.SearchAndHistoryFragment;
 import com.veontomo.biser2.Fragments.SimilarBeadFragment;
+import com.veontomo.biser2.Tasks.BeadLoaderTask;
 
 public class BeadSearchActivity extends Activity implements SearchAndHistoryFragment.OnFragmentInteractionListener {
 
@@ -23,6 +24,8 @@ public class BeadSearchActivity extends Activity implements SearchAndHistoryFrag
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bead_search);
+        BeadLoaderTask loader = new BeadLoaderTask(getApplicationContext());
+        loader.execute("locations.txt");
         Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         this.mSimilarFragment = (SimilarBeadFragment) getFragmentManager().findFragmentById(R.id.similar);
         Log.i(Config.TAG, "two pane mode? " + (mSimilarFragment != null));

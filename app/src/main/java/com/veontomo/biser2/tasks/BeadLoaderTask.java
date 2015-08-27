@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.veontomo.biser2.Config;
+import com.veontomo.biser2.Storage;
 import com.veontomo.biser2.api.Bead;
 import com.veontomo.biser2.api.Location;
 
@@ -16,9 +17,9 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 /**
- * @author veontomo@gmail.com
+ * Loads bead data into database
  */
-public class LocationLoaderTask extends AsyncTask<String, Void, Void> {
+public class BeadLoaderTask extends AsyncTask<String, Void, Void> {
     /**
      * name of the file that contains beads of the beads
      */
@@ -37,23 +38,23 @@ public class LocationLoaderTask extends AsyncTask<String, Void, Void> {
 
     private ArrayList<Bead> beads = new ArrayList<>();
 
-    public LocationLoaderTask(Context context) {
+    public BeadLoaderTask(Context context) {
         this.mContext = context;
         this.mStorage = new Storage(context);
     }
 
     @Override
     protected Void doInBackground(String... filenames) {
-        if (!this.mStorage.tableExists(Storage.LocationTable.TABLE_NAME)) {
-            Log.i(Config.TAG, "table  NOT exists");
-            int size = filenames.length;
-            for (int i = 0; i < size; i++) {
-                load(filenames[i]);
-            }
-            this.mStorage.saveBeads(this.beads);
-        } else {
-            Log.i(Config.TAG, "table exists");
+//        if (!this.mStorage.tableExists(Storage.LocationTable.TABLE_NAME)) {
+        Log.i(Config.TAG, "table  NOT exists");
+        int size = filenames.length;
+        for (int i = 0; i < size; i++) {
+            load(filenames[i]);
         }
+        this.mStorage.saveBeads(this.beads);
+//        } else {
+//            Log.i(Config.TAG, "table exists");
+//        }
         return null;
     }
 
@@ -113,11 +114,11 @@ public class LocationLoaderTask extends AsyncTask<String, Void, Void> {
             // this is a new wing
             this.mCurrentWing = codes[0];
             this.mCurrentRow = 1;
-            return;
-        }
-        for (int i = 0; i < codeLen; i++) {
-            bead = new Bead(codes[i], new Location(mCurrentWing, this.mCurrentRow, i));
-            this.beads.add(bead);
+        } else {
+            for (int i = 0; i < codeLen; i++) {
+                bead = new Bead(codes[i], new Location(mCurrentWing, this.mCurrentRow, i + 1));
+                this.beads.add(bead);
+            }
             this.mCurrentRow++;
         }
     }

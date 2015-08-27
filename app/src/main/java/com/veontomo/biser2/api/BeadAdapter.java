@@ -22,7 +22,7 @@ public class BeadAdapter extends BaseAdapter {
     private static final int LAYOUT_BEAD_ABSENT = R.layout.bead_absent;
     private final Context mContext;
     /**
-     * Array of bead color codes
+     * Array of beads to display
      */
     private List<Bead> mItems;
 
@@ -135,6 +135,14 @@ public class BeadAdapter extends BaseAdapter {
     private void inflateBeadAbsent(HolderBeadAbsent tag, Bead bead) {
         tag.text.setText(bead.colorCode);
 
+    }
+
+    /**
+     * Inserts item at the beginning of {@link #mItems list of existing items}.
+     */
+    public void prependItem(Bead bead) {
+        this.mItems.add(0, bead);
+        notifyDataSetChanged();
     }
 
     static class HolderBeadPresent {
