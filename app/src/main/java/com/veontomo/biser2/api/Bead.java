@@ -6,8 +6,10 @@ package com.veontomo.biser2.api;
  */
 public class Bead {
     public final String colorCode;
+    public final Location loc;
 
-    public Bead(String colorCode){
+    public Bead(String colorCode, Location loc){
         this.colorCode = colorCode;
+        this.loc = loc;
     }
 }

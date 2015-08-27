@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 
+import com.veontomo.biser2.Config;
+import com.veontomo.biser2.api.Bead;
 import com.veontomo.biser2.api.Location;
 
 import java.util.List;
@@ -25,7 +27,7 @@ public class Storage extends SQLiteOpenHelper {
     /**
      * Name of database that contains tables of the application
      */
-    private static final String DATABASE_NAME = "Bead";
+    private static final String DATABASE_NAME = "BeadDB";
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -50,20 +52,25 @@ public class Storage extends SQLiteOpenHelper {
     /**
      * Inserts into db given list of locations.
      */
-    public void insertLocations(List<Location> locations) {
+    public void saveBeads(List<Bead> beads) {
         SQLiteDatabase db = getWritableDatabase();
         db.beginTransaction();
         ContentValues values;
-        int size = locations.size();
+        int size = beads.size();
         Location loc;
+        Bead bead;
         for (int i = 0; i < size; i++) {
             values = new ContentValues();
-            loc = locations.get(i);
-            values.put(LocationTable.COLOR_CODE_NAME, loc.color);
-            values.put(LocationTable.WING_NAME, loc.wing);
-            values.put(LocationTable.ROW_NAME, loc.row);
-            values.put(LocationTable.COL_NAME, loc.col);
-            db.insert(LocationTable.TABLE_NAME, null, values);
+
+            bead = beads.get(i);
+            loc = bead.loc;
+            if (bead != null && loc != null) {
+                values.put(LocationTable.COLOR_CODE_NAME, bead.colorCode);
+                values.put(LocationTable.WING_NAME, loc.wing);
+                values.put(LocationTable.ROW_NAME, loc.row);
+                values.put(LocationTable.COL_NAME, loc.col);
+                db.insert(LocationTable.TABLE_NAME, null, values);
+            }
         }
         db.setTransactionSuccessful();
         db.endTransaction();

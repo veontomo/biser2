@@ -9,10 +9,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ListView;
 
 import com.veontomo.biser2.Config;
 import com.veontomo.biser2.R;
+import com.veontomo.biser2.api.Bead;
+import com.veontomo.biser2.api.BeadAdapter;
 import com.veontomo.biser2.api.DbBeadSearcher;
+import com.veontomo.biser2.api.Location;
+
+import java.util.ArrayList;
 
 
 /**
@@ -96,6 +102,13 @@ public class SearchAndHistoryFragment extends Fragment {
                 mCallback.acceptSearchTerm(mEditText.getEditableText().toString());
             }
         });
+        ListView lv = (ListView) getView().findViewById(R.id.searchHistory);
+        ArrayList<Bead> list = new ArrayList<>();
+        list.add(new Bead("46112", new Location("A1", 1, 2)));
+        list.add(new Bead("90070", new Location("B1", 3, 7)));
+        list.add(new Bead("90050", null));
+        lv.setAdapter(new BeadAdapter(getActivity().getApplicationContext(), list));
+
     }
 
     @Override

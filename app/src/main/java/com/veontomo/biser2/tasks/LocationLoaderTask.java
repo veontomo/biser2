@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.veontomo.biser2.Config;
+import com.veontomo.biser2.api.Bead;
 import com.veontomo.biser2.api.Location;
 
 import java.io.BufferedReader;
@@ -19,7 +20,7 @@ import java.util.ArrayList;
  */
 public class LocationLoaderTask extends AsyncTask<String, Void, Void> {
     /**
-     * name of the file that contains locations of the beads
+     * name of the file that contains beads of the beads
      */
     private final Context mContext;
     private final Storage mStorage;
@@ -34,7 +35,7 @@ public class LocationLoaderTask extends AsyncTask<String, Void, Void> {
      */
     private int mCurrentRow = 1;
 
-    private ArrayList<Location> locations = new ArrayList<>();
+    private ArrayList<Bead> beads = new ArrayList<>();
 
     public LocationLoaderTask(Context context) {
         this.mContext = context;
@@ -49,7 +50,7 @@ public class LocationLoaderTask extends AsyncTask<String, Void, Void> {
             for (int i = 0; i < size; i++) {
                 load(filenames[i]);
             }
-            this.mStorage.insertLocations(this.locations);
+            this.mStorage.saveBeads(this.beads);
         } else {
             Log.i(Config.TAG, "table exists");
         }
@@ -57,7 +58,7 @@ public class LocationLoaderTask extends AsyncTask<String, Void, Void> {
     }
 
     /**
-     * Reads a file with given name line by line and uses newly read line to update {@link #locations}
+     * Reads a file with given name line by line and uses newly read line to update {@link #beads}
      * list.
      *
      * @param filename file name from the assets folder
@@ -93,7 +94,7 @@ public class LocationLoaderTask extends AsyncTask<String, Void, Void> {
     }
 
     /**
-     * Updates {@link #locations locations} by information stored in given string.
+     * Updates {@link #beads beads} by information stored in given string.
      * The method uses {@link #mCurrentWing mCurrentWing} and {@link #mCurrentRow} as
      * external parameters that store correspondingly the name of wing and row index which
      * given string refers to.
@@ -107,7 +108,7 @@ public class LocationLoaderTask extends AsyncTask<String, Void, Void> {
         }
         String[] codes = line.split("\\s+");
         int codeLen = codes.length;
-        Location loc;
+        Bead bead;
         if (codeLen == 1) {
             // this is a new wing
             this.mCurrentWing = codes[0];
@@ -115,8 +116,8 @@ public class LocationLoaderTask extends AsyncTask<String, Void, Void> {
             return;
         }
         for (int i = 0; i < codeLen; i++) {
-            loc = new Location(mCurrentWing, this.mCurrentRow, i, codes[i]);
-            this.locations.add(loc);
+            bead = new Bead(codes[i], new Location(mCurrentWing, this.mCurrentRow, i));
+            this.beads.add(bead);
             this.mCurrentRow++;
         }
     }

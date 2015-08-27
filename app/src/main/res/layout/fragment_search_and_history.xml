@@ -6,7 +6,7 @@
               tools:context="com.veontomo.biser2.BeadSearchActivity">
 
     <ListView
-        android:id="@+id/listView"
+        android:id="@+id/searchHistory"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />

@@ -1,10 +1,14 @@
 package com.veontomo.biser2.api;
 
+import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.veontomo.biser2.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,10 +18,13 @@ import java.util.List;
  *
  */
 public class BeadAdapter extends BaseAdapter {
+    private static final int LAYOUT_BEAD_PRESENT = R.layout.bead_present;
+    private static final int LAYOUT_BEAD_ABSENT = R.layout.bead_absent;
+    private final Context mContext;
     /**
      * Array of bead color codes
      */
-    private List<Location> mItems;
+    private List<Bead> mItems;
 
     /**
      * Number of different layouts
@@ -34,7 +41,8 @@ public class BeadAdapter extends BaseAdapter {
      */
     private final short TYPE_ABSENT = 1;
 
-    public BeadAdapter(ArrayList<Location> items){
+    public BeadAdapter(Context context, ArrayList<Bead> items){
+        this.mContext = context;
         this.mItems = items;
     }
 
@@ -45,8 +53,13 @@ public class BeadAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
+    public Bead getItem(int position) {
         return this.mItems.get(position);
+    }
+
+    @Override
+    public int getViewTypeCount() {
+        return NUM_OF_TYPES;
     }
 
 
@@ -61,18 +74,7 @@ public class BeadAdapter extends BaseAdapter {
      */
     @Override
     public int getItemViewType(int index) {
-        IProverbAd item = this.getItem(index);
-        String name = item.getName();
-        if (AdName.equals(name)) {
-            return TYPE_AD;
-        }
-        if (ProverbName.equals(name)) {
-            Proverb proverb = (Proverb) item;
-            if (proverb.isFavorite()) {
-                return TYPE_PROVERB_FAVORITE;
-            }
-        }
-        return TYPE_PROVERB_DEFAULT;
+        return getItem(index).loc == null ? TYPE_ABSENT : TYPE_PRESENT;
     }
 
 
@@ -83,7 +85,56 @@ public class BeadAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        return null;
+        View row = convertView;
+        LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        int type = getItemViewType(position);
+        Bead item = this.getItem(position);
+
+        switch (type) {
+            case TYPE_PRESENT:
+                if (row == null) {
+                    row = inflater.inflate(LAYOUT_BEAD_PRESENT, parent, false);
+                    HolderBeadPresent holder = new HolderBeadPresent();
+                    holder.text = (TextView) row.findViewById(R.id.bead_present_color_code);
+                    holder.location = (TextView) row.findViewById(R.id.bead_present_location);
+                    row.setTag(holder);
+                }
+                this.inflateBeadPresent((HolderBeadPresent) row.getTag(), item);
+                break;
+            case TYPE_ABSENT:
+                if (row == null) {
+                    row = inflater.inflate(LAYOUT_BEAD_ABSENT, parent, false);
+                    HolderBeadAbsent holder = new HolderBeadAbsent();
+                    holder.text = (TextView) row.findViewById(R.id.bead_absent_color_code);
+                    row.setTag(holder);
+                }
+                this.inflateBeadAbsent((HolderBeadAbsent) row.getTag(), item);
+                break;
+            default:
+                row = null;
+        }
+        return row;
+
+    }
+
+    /**
+     * Set up views stored in given tag using information stored in the Bead instance
+     * @param tag
+     * @param bead
+     */
+    private void inflateBeadPresent(HolderBeadPresent tag, Bead bead) {
+        tag.text.setText(bead.colorCode);
+        tag.location.setText(bead.loc.toString());
+    }
+
+    /**
+     * Set up views stored in given tag using information stored in the Bead instance
+     * @param tag
+     * @param bead
+     */
+    private void inflateBeadAbsent(HolderBeadAbsent tag, Bead bead) {
+        tag.text.setText(bead.colorCode);
+
     }
 
     static class HolderBeadPresent {
