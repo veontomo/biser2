@@ -7,9 +7,14 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.veontomo.biser2.api.Location;
 import com.veontomo.biser2.R;
+import com.veontomo.biser2.api.BeadAdapter;
+
+import java.util.ArrayList;
 
 
 /**
@@ -87,6 +92,17 @@ public class SimilarBeadFragment extends Fragment {
 //            throw new ClassCastException(activity.toString()
 //                    + " must implement OnFragmentInteractionListener");
 //        }
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        ListView lv = (ListView) getView().findViewById(R.id.list_similar);
+        ArrayList<Location> list = new ArrayList<>();
+        list.add(new Location("A1", 1, 2, "46112"));
+        list.add(new Location("B2", 4, 6, "90050"));
+        list.add(new Location("B1", 11, 5, "12878"));
+        lv.setAdapter(new BeadAdapter(list));
     }
 
     @Override

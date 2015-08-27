@@ -6,7 +6,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.veontomo.biser2.Config;
-import com.veontomo.biser2.Location;
+import com.veontomo.biser2.api.Location;
 
 import java.io.BufferedReader;
 import java.io.IOException;

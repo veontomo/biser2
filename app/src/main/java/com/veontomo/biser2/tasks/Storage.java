@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 
-import com.veontomo.biser2.Location;
+import com.veontomo.biser2.api.Location;
 
 import java.util.List;
 
