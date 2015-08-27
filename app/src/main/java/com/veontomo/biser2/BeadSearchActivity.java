@@ -13,14 +13,19 @@ public class BeadSearchActivity extends Activity implements SearchAndHistoryFrag
 
     private String marker = "activity: ";
 
+    /**
+     * fragment that displays similar bead colors
+     */
+    private SimilarBeadFragment mSimilarFragment;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bead_search);
         Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
-        SimilarBeadFragment displayFrag = (SimilarBeadFragment) getFragmentManager()
-                .findFragmentById(R.id.similar);
-        Log.i(Config.TAG, "fragment is null? " + (displayFrag == null));
+        this.mSimilarFragment = (SimilarBeadFragment) getFragmentManager().findFragmentById(R.id.similar);
+        Log.i(Config.TAG, "two pane mode? " + (mSimilarFragment != null));
 
     }
 
@@ -89,8 +94,10 @@ public class BeadSearchActivity extends Activity implements SearchAndHistoryFrag
     }
 
     @Override
-    public void setSearchTerm(String str) {
-        Log.i(Config.TAG, "BeadSearchActivity: search term " + str);
+    public void acceptSearchTerm(String str) {
+        if (this.mSimilarFragment != null){
+            this.mSimilarFragment.updateView(str);
+        }
     }
 
 

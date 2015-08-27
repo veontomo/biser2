@@ -7,6 +7,7 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.veontomo.biser2.R;
 
@@ -92,6 +93,15 @@ public class SimilarBeadFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
 //        mListener = null;
+    }
+
+    /**
+     *
+     * @author veontomo@gmail.com
+     */
+    public void updateView(String str) {
+        ((TextView) getView().findViewById(R.id.color_code)).setText(str);
+
     }
 
     /**

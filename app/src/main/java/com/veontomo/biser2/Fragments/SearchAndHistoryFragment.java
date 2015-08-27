@@ -31,6 +31,7 @@ public class SearchAndHistoryFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
     /**
      * search button
      */
@@ -92,7 +93,7 @@ public class SearchAndHistoryFragment extends Fragment {
         this.mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mCallback.setSearchTerm(mEditText.getEditableText().toString());
+                mCallback.acceptSearchTerm(mEditText.getEditableText().toString());
             }
         });
     }
@@ -152,7 +153,7 @@ public class SearchAndHistoryFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        public void setSearchTerm(String str);
+        public void acceptSearchTerm(String str);
     }
 
 }
