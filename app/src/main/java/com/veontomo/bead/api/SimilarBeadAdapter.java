@@ -1,4 +1,4 @@
-package com.veontomo.biser2.api;
+package com.veontomo.bead.api;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.veontomo.biser2.R;
+import com.veontomo.bead.R;
 
 import java.util.List;
 
@@ -17,11 +17,11 @@ import java.util.List;
 public class SimilarBeadAdapter extends BaseAdapter {
 
     private final Context mContext;
-    private List<String> mItems;
+    private final List<String> mItems;
 
-    public SimilarBeadAdapter(Context context, List<String> data){
+    public SimilarBeadAdapter(Context context, List<String> items){
         this.mContext = context;
-        this.mItems = data;
+        this.mItems = items;
     }
     @Override
     public int getCount() {

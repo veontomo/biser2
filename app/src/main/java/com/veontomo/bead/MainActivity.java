@@ -1,11 +1,11 @@
-package com.veontomo.biser2;
+package com.veontomo.bead;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.veontomo.biser2.Tasks.BeadLoaderTask;
+import com.veontomo.bead.Tasks.BeadLoaderTask;
 
 public class MainActivity extends AppCompatActivity {
 

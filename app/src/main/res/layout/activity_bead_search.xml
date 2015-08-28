@@ -3,11 +3,11 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical"
-              tools:context="com.veontomo.biser2.BeadSearchActivity">
+              tools:context="com.veontomo.bead.BeadSearchActivity">
 
     <fragment
         android:id="@+id/search"
-        class="com.veontomo.biser2.Fragments.SearchAndHistoryFragment"
+        class="com.veontomo.bead.Fragments.SearchAndHistoryFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

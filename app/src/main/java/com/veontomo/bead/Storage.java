@@ -1,4 +1,4 @@
-package com.veontomo.biser2;
+package com.veontomo.bead;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,11 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
-import android.util.Log;
-
-import com.veontomo.biser2.Config;
-import com.veontomo.biser2.api.Bead;
-import com.veontomo.biser2.api.Location;
+import com.veontomo.bead.api.Bead;
+import com.veontomo.bead.api.Location;
 
 import java.util.List;
 
@@ -62,10 +59,9 @@ public class Storage extends SQLiteOpenHelper {
         Bead bead;
         for (int i = 0; i < size; i++) {
             values = new ContentValues();
-
             bead = beads.get(i);
             loc = bead.loc;
-            if (bead != null && loc != null) {
+            if (loc != null) {
                 values.put(LocationTable.COLOR_CODE_NAME, bead.colorCode);
                 values.put(LocationTable.WING_NAME, loc.wing);
                 values.put(LocationTable.ROW_NAME, loc.row);

@@ -1,4 +1,4 @@
-package com.veontomo.biser2.api;
+package com.veontomo.bead.api;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.veontomo.biser2.R;
+import com.veontomo.bead.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,7 @@ import java.util.List;
  * Adapter to display information about beads
  *
  */
-public class BeadAdapter extends BaseAdapter {
+public final class BeadAdapter extends BaseAdapter {
     private static final int LAYOUT_BEAD_PRESENT = R.layout.row_bead_present;
     private static final int LAYOUT_BEAD_ABSENT = R.layout.row_bead_absent;
     private final Context mContext;

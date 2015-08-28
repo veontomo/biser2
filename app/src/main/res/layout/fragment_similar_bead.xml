@@ -3,7 +3,7 @@
              android:layout_width="match_parent"
              android:layout_height="match_parent"
               android:orientation="vertical"
-             tools:context="com.veontomo.biser2.Fragments.SimilarBeadFragment">
+             tools:context="com.veontomo.bead.Fragments.SimilarBeadFragment">
 
     <TextView
         android:id="@+id/color_code"

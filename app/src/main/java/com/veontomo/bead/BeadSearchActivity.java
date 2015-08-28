@@ -1,18 +1,19 @@
-package com.veontomo.biser2;
+package com.veontomo.bead;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.veontomo.biser2.Fragments.SearchAndHistoryFragment;
-import com.veontomo.biser2.Fragments.SimilarBeadFragment;
-import com.veontomo.biser2.Tasks.BeadLoaderTask;
+import com.veontomo.bead.Fragments.SearchAndHistoryFragment;
+import com.veontomo.bead.Fragments.SimilarBeadFragment;
+import com.veontomo.bead.Tasks.BeadLoaderTask;
 
 public class BeadSearchActivity extends Activity implements SearchAndHistoryFragment.OnFragmentInteractionListener {
 
-    private String marker = "activity: ";
+    private final String marker = "activity: ";
 
     /**
      * fragment that displays similar bead colors
@@ -39,7 +40,7 @@ public class BeadSearchActivity extends Activity implements SearchAndHistoryFrag
     }
 
     @Override
-    public void onRestoreInstanceState(Bundle savedBundle) {
+    public void onRestoreInstanceState(@NonNull Bundle savedBundle) {
         super.onRestoreInstanceState(savedBundle);
         Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
     }
@@ -56,7 +57,7 @@ public class BeadSearchActivity extends Activity implements SearchAndHistoryFrag
     }
 
     @Override
-    public void onSaveInstanceState(Bundle bundle) {
+    public void onSaveInstanceState(@NonNull Bundle bundle) {
         Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         super.onSaveInstanceState(bundle);
     }

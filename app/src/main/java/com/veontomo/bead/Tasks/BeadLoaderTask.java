@@ -1,14 +1,14 @@
-package com.veontomo.biser2.Tasks;
+package com.veontomo.bead.Tasks;
 
 import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.veontomo.biser2.Config;
-import com.veontomo.biser2.Storage;
-import com.veontomo.biser2.api.Bead;
-import com.veontomo.biser2.api.Location;
+import com.veontomo.bead.Config;
+import com.veontomo.bead.Storage;
+import com.veontomo.bead.api.Bead;
+import com.veontomo.bead.api.Location;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -46,12 +46,11 @@ public class BeadLoaderTask extends AsyncTask<String, Void, Void> {
     @Override
     protected Void doInBackground(String... filenames) {
         if (!this.mStorage.tableExists(Storage.LocationTable.TABLE_NAME)) {
-        Log.i(Config.TAG, "table  NOT exists");
-        int size = filenames.length;
-        for (int i = 0; i < size; i++) {
-            load(filenames[i]);
-        }
-        this.mStorage.saveBeads(this.beads);
+            Log.i(Config.TAG, "table  NOT exists");
+            for (String filename : filenames) {
+                load(filename);
+            }
+            this.mStorage.saveBeads(this.beads);
         } else {
             Log.i(Config.TAG, "table exists");
         }

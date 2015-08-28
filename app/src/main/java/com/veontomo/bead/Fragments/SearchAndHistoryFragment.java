@@ -1,6 +1,5 @@
-package com.veontomo.biser2.Fragments;
+package com.veontomo.bead.Fragments;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -12,13 +11,12 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
-import com.veontomo.biser2.Config;
-import com.veontomo.biser2.R;
-import com.veontomo.biser2.Storage;
-import com.veontomo.biser2.Tasks.BeadFinderTask;
-import com.veontomo.biser2.api.Bead;
-import com.veontomo.biser2.api.BeadAdapter;
-import com.veontomo.biser2.api.Location;
+import com.veontomo.bead.Config;
+import com.veontomo.bead.R;
+import com.veontomo.bead.Storage;
+import com.veontomo.bead.Tasks.BeadFinderTask;
+import com.veontomo.bead.api.Bead;
+import com.veontomo.bead.api.BeadAdapter;
 
 import java.util.ArrayList;
 
@@ -174,7 +172,7 @@ public class SearchAndHistoryFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        public void acceptSearchTerm(String str);
+        void acceptSearchTerm(String str);
     }
 
 }

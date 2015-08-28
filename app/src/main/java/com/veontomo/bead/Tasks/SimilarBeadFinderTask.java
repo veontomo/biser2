@@ -1,7 +1,7 @@
-package com.veontomo.biser2.Tasks;
+package com.veontomo.bead.Tasks;
 
 import android.os.AsyncTask;
-import com.veontomo.biser2.api.SimilarBeadAdapter;
+import com.veontomo.bead.api.SimilarBeadAdapter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
