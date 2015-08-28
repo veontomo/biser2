@@ -8,21 +8,17 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.veontomo.bead.Storage;
 import com.veontomo.bead.Tasks.SimilarBeadFinderTask;
 import com.veontomo.bead.R;
+import com.veontomo.bead.api.BeadSearcher;
 import com.veontomo.bead.api.SimilarBeadAdapter;
 
 import java.util.ArrayList;
 
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {
- * @link SimilarBeadFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link SimilarBeadFragment#newInstance} factory method to
- * create an instance of this fragment.
+ *
  */
 public class SimilarBeadFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
@@ -41,6 +37,11 @@ public class SimilarBeadFragment extends Fragment {
      * adapter that is responsible for displaying similar beads in the {@link #mListView list view}.
      */
     private SimilarBeadAdapter mAdapter;
+
+    /**
+     * instance that performs a bead-related search in database (asynchronously)
+     */
+    private BeadSearcher mSearcher;
 
 
     public SimilarBeadFragment() {
@@ -92,8 +93,12 @@ public class SimilarBeadFragment extends Fragment {
     }
 
     private void findSimilar(String code) {
-        SimilarBeadFinderTask task = new SimilarBeadFinderTask(this.mAdapter);
-        task.execute(code);
+        if (this.mSearcher == null){
+            this.mSearcher = new BeadSearcher(new Storage(getActivity().getApplicationContext()));
+        }
+        this.mSearcher.fillInWithSimilar(code, this.mAdapter);
+//        SimilarBeadFinderTask task = new SimilarBeadFinderTask(this.mAdapter);
+//        task.execute(code);
 
     }
 
