@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
+
 import com.veontomo.bead.api.Bead;
 import com.veontomo.bead.api.Location;
 
@@ -119,6 +120,37 @@ public class Storage extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return bead;
+    }
+
+    /**
+     * Returns array of color codes of all beads.
+     *
+     * @return array of strings
+     */
+
+    public String[] getColorCodes() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor =
+                db.query(LocationTable.TABLE_NAME,
+                        new String[]{LocationTable.COLOR_CODE_NAME},
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null);
+        int size = cursor.getCount(),
+                pointer = 0,
+                index = cursor.getColumnIndex(LocationTable.COLOR_CODE_NAME);
+
+        String[] codes = new String[size];
+        while (cursor.moveToNext()) {
+            codes[pointer] = cursor.getString(index);
+            pointer++;
+        }
+        cursor.close();
+        db.close();
+        return codes;
     }
 
     public abstract class LocationTable implements BaseColumns {
