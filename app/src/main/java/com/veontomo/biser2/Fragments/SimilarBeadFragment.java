@@ -7,14 +7,12 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.veontomo.biser2.api.Bead;
-import com.veontomo.biser2.api.Location;
+import com.veontomo.biser2.Tasks.SimilarBeadFinderTask;
 import com.veontomo.biser2.R;
-import com.veontomo.biser2.api.BeadAdapter;
+import com.veontomo.biser2.api.SimilarBeadAdapter;
 
 import java.util.ArrayList;
 
@@ -44,7 +42,7 @@ public class SimilarBeadFragment extends Fragment {
     /**
      * adapter that is responsible for displaying similar beads in the {@link #mListView list view}.
      */
-    private ArrayAdapter<String> mAdapter;
+    private SimilarBeadAdapter mAdapter;
 
 //    private OnFragmentInteractionListener mListener;
 
@@ -108,8 +106,16 @@ public class SimilarBeadFragment extends Fragment {
     public void onStart(){
         super.onStart();
         this.mListView = (ListView) getView().findViewById(R.id.list_similar);
-        this.mAdapter = new ArrayAdapter<>(getActivity().getApplicationContext(), R.layout.bead_present, R.id.bead_present_color_code, new String[]{"a", "b"});
+        this.mAdapter = new SimilarBeadAdapter(getActivity().getApplicationContext(), new ArrayList<String>());
         this.mListView.setAdapter(this.mAdapter);
+    }
+
+    @Override
+    public void onStop(){
+        this.mListView.setAdapter(null);
+        this.mAdapter = null;
+        this.mListView = null;
+        super.onStop();
     }
 
     @Override
@@ -124,6 +130,13 @@ public class SimilarBeadFragment extends Fragment {
      */
     public void updateView(String str) {
         ((TextView) getView().findViewById(R.id.color_code)).setText(str);
+        findSimilar(str);
+
+    }
+
+    private void findSimilar(String code) {
+        SimilarBeadFinderTask task = new SimilarBeadFinderTask(this.mAdapter);
+        task.execute(code);
 
     }
 

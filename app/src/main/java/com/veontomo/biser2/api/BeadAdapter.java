@@ -18,8 +18,8 @@ import java.util.List;
  *
  */
 public class BeadAdapter extends BaseAdapter {
-    private static final int LAYOUT_BEAD_PRESENT = R.layout.bead_present;
-    private static final int LAYOUT_BEAD_ABSENT = R.layout.bead_absent;
+    private static final int LAYOUT_BEAD_PRESENT = R.layout.row_bead_present;
+    private static final int LAYOUT_BEAD_ABSENT = R.layout.row_bead_absent;
     private final Context mContext;
     /**
      * Array of beads to display
