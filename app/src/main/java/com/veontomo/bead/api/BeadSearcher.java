@@ -1,10 +1,10 @@
 package com.veontomo.bead.api;
 
+import android.util.Log;
+
+import com.veontomo.bead.Config;
 import com.veontomo.bead.Storage;
 import com.veontomo.bead.Tasks.SimilarBeadFinderTask;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Performs bead-related search in database
@@ -15,6 +15,10 @@ public class BeadSearcher {
     private String[] items;
 
     private SimilarBeadFinderTask worker;
+    /**
+     * cached array of all color codes
+     */
+    public String[] data;
 
     public BeadSearcher(final Storage storage) {
         this.storage = storage;
@@ -26,9 +30,17 @@ public class BeadSearcher {
      * @param adapter to whom handle the result
      */
     public void fillInWithSimilar(String code, SimilarBeadAdapter adapter) {
-        this.worker = new SimilarBeadFinderTask(storage, adapter, items);
+        this.worker = new SimilarBeadFinderTask(storage, adapter, this);
         this.worker.execute(code);
         //adapter.prepend(new ArrayList<>(Arrays.asList(new String[]{"a", "b", "c"})));
 
+    }
+
+    public String[] getData() {
+        return data;
+    }
+
+    public void setData(String[] data){
+        this.data = data;
     }
 }

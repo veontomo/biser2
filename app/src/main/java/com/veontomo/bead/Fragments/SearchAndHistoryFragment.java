@@ -15,6 +15,7 @@ import com.veontomo.bead.Config;
 import com.veontomo.bead.R;
 import com.veontomo.bead.Storage;
 import com.veontomo.bead.Tasks.BeadFinderTask;
+import com.veontomo.bead.Tasks.BeadLoaderTask;
 import com.veontomo.bead.api.Bead;
 import com.veontomo.bead.api.BeadAdapter;
 
@@ -70,6 +71,8 @@ public class SearchAndHistoryFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        BeadLoaderTask loader = new BeadLoaderTask(getActivity().getApplicationContext());
+        loader.execute("locations.txt");
 
 
     }
@@ -109,6 +112,11 @@ public class SearchAndHistoryFragment extends Fragment {
                 worker.execute(searchTerm);
             }
         });
+
+
+        /////
+
+        /////
 
     }
 

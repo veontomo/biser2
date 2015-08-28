@@ -7,11 +7,14 @@
         android:id = "@+id/bead_present_color_code"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#000000"/>
+        android:textSize="18sp"
+        android:textColor="#d2ff4100"/>
     <TextView
         android:id = "@+id/bead_present_location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:paddingStart="9dp"
         android:textColor="#000000"/>
 
 </LinearLayout>

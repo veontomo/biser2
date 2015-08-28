@@ -82,7 +82,7 @@ public class Storage extends SQLiteOpenHelper {
      */
     public boolean tableExists(final String tableName) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT DISTINCT tbl_name FROM sqlite_master WHERE tbl_name = ?;", new String[]{tableName});
+        Cursor cursor = db.rawQuery("SELECT * FROM " + tableName, null);
         if (cursor == null) {
             return false;
         }

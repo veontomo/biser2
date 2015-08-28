@@ -39,6 +39,7 @@ public class BeadLoaderTask extends AsyncTask<String, Void, Void> {
     private ArrayList<Bead> beads = new ArrayList<>();
 
     public BeadLoaderTask(Context context) {
+        Log.i(Config.TAG, "Loading beads");
         this.mContext = context;
         this.mStorage = new Storage(context);
     }
@@ -48,6 +49,7 @@ public class BeadLoaderTask extends AsyncTask<String, Void, Void> {
         if (!this.mStorage.tableExists(Storage.LocationTable.TABLE_NAME)) {
             Log.i(Config.TAG, "table  NOT exists");
             for (String filename : filenames) {
+                Log.i(Config.TAG, "Loading from file " + filename);
                 load(filename);
             }
             this.mStorage.saveBeads(this.beads);
@@ -103,6 +105,7 @@ public class BeadLoaderTask extends AsyncTask<String, Void, Void> {
      * Otherwise it is considered as a content of a new line.
      */
     private void updateLocations(@NonNull String line) {
+        Log.i(Config.TAG, "Loading line " + line);
         if (line.isEmpty()) {
             return;
         }

@@ -12,11 +12,14 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.veontomo.bead.Config;
 import com.veontomo.bead.Storage;
 import com.veontomo.bead.Tasks.BeadSimilarTask;
 import com.veontomo.bead.Tasks.SimilarBeadFinderTask;
 import com.veontomo.bead.R;
+import com.veontomo.bead.api.BKTree;
 import com.veontomo.bead.api.BeadSearcher;
+import com.veontomo.bead.api.Distance;
 import com.veontomo.bead.api.SimilarBeadAdapter;
 
 import java.util.ArrayList;
@@ -76,7 +79,10 @@ public class SimilarBeadFragment extends Fragment {
         this.mListView = (ListView) getView().findViewById(R.id.list_similar);
         this.mAdapter = new SimilarBeadAdapter(getActivity().getApplicationContext(), new ArrayList<String>());
         this.mListView.setAdapter(this.mAdapter);
+
+
     }
+
 
 
     @Override
@@ -99,7 +105,10 @@ public class SimilarBeadFragment extends Fragment {
 
     private void findSimilar(String code) {
         if (this.mSearcher == null){
+            Log.i(Config.TAG, "create new mSearcher");
             this.mSearcher = new BeadSearcher(new Storage(getActivity().getApplicationContext()));
+        } else {
+            Log.i(Config.TAG, "mSearcher already exists");
         }
         this.mSearcher.fillInWithSimilar(code, this.mAdapter);
     }

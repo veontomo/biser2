@@ -63,6 +63,12 @@ public class SimilarBeadAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    public void setItems(List<String> list) {
+        this.mItems.clear();
+        this.mItems.addAll(0, list);
+        notifyDataSetChanged();
+    }
+
     /**
      * class that implements view holder pattern
      */
