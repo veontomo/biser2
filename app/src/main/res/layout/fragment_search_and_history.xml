@@ -19,6 +19,8 @@
         <EditText
             android:id="@+id/editText"
             android:layout_width="100dp"
+            android:inputType="phone"
+            android:hint="@string/colorCode"
             android:layout_height="wrap_content"
             android:ems="8" />
 
@@ -27,6 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
+            android:contentDescription="@string/find_bead"
             android:src="@mipmap/ic_search_black_24dp" />
     </LinearLayout>
 </LinearLayout>
