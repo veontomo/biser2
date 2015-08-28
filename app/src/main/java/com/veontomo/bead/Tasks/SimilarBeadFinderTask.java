@@ -20,6 +20,7 @@ public class SimilarBeadFinderTask extends AsyncTask<String, Void, String[]>{
     private String[] data;
 
     public SimilarBeadFinderTask(Storage storage, SimilarBeadAdapter adapter, String[] data){
+        Log.i(Config.TAG, "new  SimilarBeadFinderTask task");
         this.storage = storage;
         this.mAdapter = adapter;
         this.data = data;
