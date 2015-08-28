@@ -1,4 +1,4 @@
-package com.veontomo.biser2;
+package com.veontomo.bead;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

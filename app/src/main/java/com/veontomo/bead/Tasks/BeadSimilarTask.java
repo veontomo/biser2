@@ -1,11 +1,12 @@
-package com.veontomo.biser2.Tasks;
+package com.veontomo.bead.Tasks;
 
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 
-import com.veontomo.biser2.Config;
-import com.veontomo.biser2.Storage;
+
+import com.veontomo.bead.Config;
+import com.veontomo.bead.Storage;
 
 import java.util.ArrayList;
 import java.util.List;

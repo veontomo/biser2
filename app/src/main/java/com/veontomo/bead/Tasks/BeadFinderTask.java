@@ -1,14 +1,10 @@
-package com.veontomo.biser2.Tasks;
+package com.veontomo.bead.Tasks;
 
-import android.content.Context;
 import android.os.AsyncTask;
 
-import com.veontomo.biser2.Storage;
-import com.veontomo.biser2.api.Bead;
-import com.veontomo.biser2.api.BeadAdapter;
-import com.veontomo.biser2.api.Location;
-
-import java.util.List;
+import com.veontomo.bead.Storage;
+import com.veontomo.bead.api.Bead;
+import com.veontomo.bead.api.BeadAdapter;
 
 /**
  * Finds bead with given color code in database

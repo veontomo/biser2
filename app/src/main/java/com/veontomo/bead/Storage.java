@@ -1,4 +1,4 @@
-package com.veontomo.biser2;
+package com.veontomo.bead;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,11 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
-import android.util.Log;
 
-import com.veontomo.biser2.Config;
-import com.veontomo.biser2.api.Bead;
-import com.veontomo.biser2.api.Location;
+import com.veontomo.bead.api.Bead;
+import com.veontomo.bead.api.Location;
 
 import java.util.List;
 
@@ -62,10 +60,9 @@ public class Storage extends SQLiteOpenHelper {
         Bead bead;
         for (int i = 0; i < size; i++) {
             values = new ContentValues();
-
             bead = beads.get(i);
             loc = bead.loc;
-            if (bead != null && loc != null) {
+            if (loc != null) {
                 values.put(LocationTable.COLOR_CODE_NAME, bead.colorCode);
                 values.put(LocationTable.WING_NAME, loc.wing);
                 values.put(LocationTable.ROW_NAME, loc.row);
@@ -123,6 +120,37 @@ public class Storage extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return bead;
+    }
+
+    /**
+     * Returns array of color codes of all beads.
+     *
+     * @return array of strings
+     */
+
+    public String[] getColorCodes() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor =
+                db.query(LocationTable.TABLE_NAME,
+                        new String[]{LocationTable.COLOR_CODE_NAME},
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null);
+        int size = cursor.getCount(),
+                pointer = 0,
+                index = cursor.getColumnIndex(LocationTable.COLOR_CODE_NAME);
+
+        String[] codes = new String[size];
+        while (cursor.moveToNext()) {
+            codes[pointer] = cursor.getString(index);
+            pointer++;
+        }
+        cursor.close();
+        db.close();
+        return codes;
     }
 
     public abstract class LocationTable implements BaseColumns {

@@ -3,17 +3,18 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="horizontal"
-              tools:context="com.veontomo.biser2.BeadSearchActivity">
+              android:baselineAligned="false"
+              tools:context="com.veontomo.bead.BeadSearchActivity">
 
     <fragment
         android:id="@+id/search"
-        class="com.veontomo.biser2.Fragments.SearchAndHistoryFragment"
+        class="com.veontomo.bead.Fragments.SearchAndHistoryFragment"
         android:layout_width="0dp"
         android:layout_weight="2"
         android:layout_height="match_parent"/>
     <fragment
         android:id="@+id/similar"
-        class="com.veontomo.biser2.Fragments.SimilarBeadFragment"
+        class="com.veontomo.bead.Fragments.SimilarBeadFragment"
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="match_parent"/>

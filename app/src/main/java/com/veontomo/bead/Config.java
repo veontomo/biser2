@@ -1,4 +1,4 @@
-package com.veontomo.biser2;
+package com.veontomo.bead;
 
 /**
  * Created by Mario Rossi on 24/08/2015 at 15:22.

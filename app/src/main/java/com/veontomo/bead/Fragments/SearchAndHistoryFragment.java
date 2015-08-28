@@ -1,6 +1,6 @@
-package com.veontomo.biser2.Fragments;
+package com.veontomo.bead.Fragments;
 
-import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.util.Log;
@@ -11,13 +11,12 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
-import com.veontomo.biser2.Config;
-import com.veontomo.biser2.R;
-import com.veontomo.biser2.Storage;
-import com.veontomo.biser2.Tasks.BeadFinderTask;
-import com.veontomo.biser2.api.Bead;
-import com.veontomo.biser2.api.BeadAdapter;
-import com.veontomo.biser2.api.Location;
+import com.veontomo.bead.Config;
+import com.veontomo.bead.R;
+import com.veontomo.bead.Storage;
+import com.veontomo.bead.Tasks.BeadFinderTask;
+import com.veontomo.bead.api.Bead;
+import com.veontomo.bead.api.BeadAdapter;
 
 import java.util.ArrayList;
 
@@ -57,22 +56,16 @@ public class SearchAndHistoryFragment extends Fragment {
     private BeadAdapter mAdapter;
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
+    public void onAttach(Context context) {
+        super.onAttach(context);
         Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
-        try {
-            mCallback = (OnFragmentInteractionListener) activity;
-
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        this.mCallback = (OnFragmentInteractionListener) getActivity();
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -107,7 +100,11 @@ public class SearchAndHistoryFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String searchTerm = mEditText.getEditableText().toString();
-                mCallback.acceptSearchTerm(searchTerm);
+                if (mCallback != null) {
+                    mCallback.acceptSearchTerm(searchTerm);
+                } else {
+                    Log.i(Config.TAG, "Activity that hosts the fragment does not implement interface SearchAndHistoryFragment.OnFragmentInteractionListener. Therefore, no data exchange is possible.");
+                }
                 BeadFinderTask worker = new BeadFinderTask(new Storage(getActivity().getApplicationContext()), mAdapter);
                 worker.execute(searchTerm);
             }
@@ -159,7 +156,6 @@ public class SearchAndHistoryFragment extends Fragment {
     }
 
 
-
     public SearchAndHistoryFragment() {
         // Required empty public constructor
     }
@@ -176,7 +172,7 @@ public class SearchAndHistoryFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        public void acceptSearchTerm(String str);
+        void acceptSearchTerm(String str);
     }
 
 }

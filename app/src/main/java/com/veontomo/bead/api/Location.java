@@ -1,4 +1,4 @@
-package com.veontomo.biser2.api;
+package com.veontomo.bead.api;
 
 /**
  * Describes loc of the bead
