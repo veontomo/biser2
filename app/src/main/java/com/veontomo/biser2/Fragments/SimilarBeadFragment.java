@@ -4,12 +4,20 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.veontomo.biser2.Config;
+import com.veontomo.biser2.Storage;
+import com.veontomo.biser2.Tasks.BeadFinderTask;
+import com.veontomo.biser2.Tasks.BeadSimilarTask;
 import com.veontomo.biser2.api.Bead;
 import com.veontomo.biser2.api.Location;
 import com.veontomo.biser2.R;
@@ -22,6 +30,7 @@ import java.util.ArrayList;
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
  * {
+ *
  * @link SimilarBeadFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
  * Use the {@link SimilarBeadFragment#newInstance} factory method to
@@ -32,12 +41,19 @@ public class SimilarBeadFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    private final String marker = "similar: ";
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private ListView mListView;
+    private ArrayAdapter<String> mAdapter;
+    private BeadSimilarTask mSimilarFinder;
 
 //    private OnFragmentInteractionListener mListener;
+
+    public SimilarBeadFragment() {
+        // Required empty public constructor
+    }
 
     /**
      * Use this factory method to create a new instance of
@@ -55,10 +71,6 @@ public class SimilarBeadFragment extends Fragment {
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
-    }
-
-    public SimilarBeadFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -96,9 +108,18 @@ public class SimilarBeadFragment extends Fragment {
     }
 
     @Override
-    public void onStart(){
+    public void onStart() {
         super.onStart();
+        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        mListView = (ListView) getView().findViewById(R.id.list_similar);
+        this.mAdapter = new ArrayAdapter(getActivity().getApplicationContext(),
+                R.layout.bead_present,
+                R.id.bead_present_color_code,
+                new String[]{"aaa", "bbb"});
+        mListView.setAdapter(this.mAdapter);
+
     }
+
 
     @Override
     public void onDetach() {
@@ -106,13 +127,19 @@ public class SimilarBeadFragment extends Fragment {
 //        mListener = null;
     }
 
+
     /**
-     *
      * @author veontomo@gmail.com
      */
     public void updateView(String str) {
         ((TextView) getView().findViewById(R.id.color_code)).setText(str);
+        findSimilar(str);
 
+    }
+
+    private void findSimilar(String code) {
+        this.mSimilarFinder = new BeadSimilarTask(new Storage(getActivity().getApplicationContext()), mAdapter);
+        this.mSimilarFinder.execute(code);
     }
 
     /**
