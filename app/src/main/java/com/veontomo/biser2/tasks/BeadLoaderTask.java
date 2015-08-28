@@ -45,16 +45,16 @@ public class BeadLoaderTask extends AsyncTask<String, Void, Void> {
 
     @Override
     protected Void doInBackground(String... filenames) {
-//        if (!this.mStorage.tableExists(Storage.LocationTable.TABLE_NAME)) {
+        if (!this.mStorage.tableExists(Storage.LocationTable.TABLE_NAME)) {
         Log.i(Config.TAG, "table  NOT exists");
         int size = filenames.length;
         for (int i = 0; i < size; i++) {
             load(filenames[i]);
         }
         this.mStorage.saveBeads(this.beads);
-//        } else {
-//            Log.i(Config.TAG, "table exists");
-//        }
+        } else {
+            Log.i(Config.TAG, "table exists");
+        }
         return null;
     }
 

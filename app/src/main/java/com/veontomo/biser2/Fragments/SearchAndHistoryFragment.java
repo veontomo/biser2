@@ -100,13 +100,9 @@ public class SearchAndHistoryFragment extends Fragment {
         Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         this.mButton = (ImageButton) getView().findViewById(R.id.button);
         this.mEditText = (EditText) getView().findViewById(R.id.editText);
-        mListView = (ListView) getView().findViewById(R.id.searchHistory);
-        ArrayList<Bead> list = new ArrayList<>();
-        list.add(new Bead("46112", new Location("A1", 1, 2)));
-        list.add(new Bead("90070", new Location("B1", 3, 7)));
-        list.add(new Bead("90050", null));
-        this.mAdapter = new BeadAdapter(getActivity().getApplicationContext(), list);
-        mListView.setAdapter(this.mAdapter);
+        this.mListView = (ListView) getView().findViewById(R.id.searchHistory);
+        this.mAdapter = new BeadAdapter(getActivity().getApplicationContext(), new ArrayList<Bead>());
+        this.mListView.setAdapter(this.mAdapter);
         this.mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

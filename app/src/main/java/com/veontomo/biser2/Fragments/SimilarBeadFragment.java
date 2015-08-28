@@ -7,6 +7,7 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -36,6 +37,14 @@ public class SimilarBeadFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    /**
+     * list view that contains information about similar beads
+     */
+    private ListView mListView;
+    /**
+     * adapter that is responsible for displaying similar beads in the {@link #mListView list view}.
+     */
+    private ArrayAdapter<String> mAdapter;
 
 //    private OnFragmentInteractionListener mListener;
 
@@ -98,6 +107,9 @@ public class SimilarBeadFragment extends Fragment {
     @Override
     public void onStart(){
         super.onStart();
+        this.mListView = (ListView) getView().findViewById(R.id.list_similar);
+        this.mAdapter = new ArrayAdapter<>(getActivity().getApplicationContext(), R.layout.bead_present, R.id.bead_present_color_code, new String[]{"a", "b"});
+        this.mListView.setAdapter(this.mAdapter);
     }
 
     @Override
