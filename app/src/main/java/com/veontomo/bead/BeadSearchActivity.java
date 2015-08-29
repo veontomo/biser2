@@ -28,8 +28,6 @@ public class BeadSearchActivity extends Activity implements SearchAndHistoryFrag
         // BeadLoaderTask loader = new BeadLoaderTask(getApplicationContext());
         // loader.execute("locations.txt");
         Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
-        this.mSimilarFragment = (SimilarBeadFragment) getFragmentManager().findFragmentById(R.id.similar);
-        Log.i(Config.TAG, "two pane mode? " + (mSimilarFragment != null));
 
     }
 
@@ -48,11 +46,19 @@ public class BeadSearchActivity extends Activity implements SearchAndHistoryFrag
     @Override
     public void onResume() {
         super.onResume();
+        this.mSimilarFragment = (SimilarBeadFragment) getFragmentManager().findFragmentById(R.id.similar);
+        Log.i(Config.TAG, "two pane mode? " + (mSimilarFragment != null));
+        if (getResources().getBoolean(R.bool.dual_pane)) {
+            Log.i(Config.TAG, "two pane mode");
+        } else {
+            Log.i(Config.TAG, "single pane mode");
+        }
     }
 
     @Override
     public void onPause() {
         Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        this.mSimilarFragment = null;
         super.onPause();
     }
 
@@ -99,7 +105,7 @@ public class BeadSearchActivity extends Activity implements SearchAndHistoryFrag
 
     @Override
     public void acceptSearchTerm(String str) {
-        if (this.mSimilarFragment != null){
+        if (getResources().getBoolean(R.bool.dual_pane)) {
             this.mSimilarFragment.updateView(str);
         }
     }

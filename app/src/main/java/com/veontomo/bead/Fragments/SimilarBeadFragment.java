@@ -6,20 +6,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.veontomo.bead.Config;
 import com.veontomo.bead.Storage;
-import com.veontomo.bead.Tasks.BeadSimilarTask;
-import com.veontomo.bead.Tasks.SimilarBeadFinderTask;
 import com.veontomo.bead.R;
-import com.veontomo.bead.api.BKTree;
 import com.veontomo.bead.api.BeadSearcher;
-import com.veontomo.bead.api.Distance;
 import com.veontomo.bead.api.SimilarBeadAdapter;
 
 import java.util.ArrayList;

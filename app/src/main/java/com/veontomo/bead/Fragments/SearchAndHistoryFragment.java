@@ -112,12 +112,6 @@ public class SearchAndHistoryFragment extends Fragment {
                 worker.execute(searchTerm);
             }
         });
-
-
-        /////
-
-        /////
-
     }
 
     @Override

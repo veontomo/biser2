@@ -17,7 +17,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 /**
- * Loads bead data into database
+ * Loads bead tree into database
  */
 public class BeadLoaderTask extends AsyncTask<String, Void, Void> {
     /**
@@ -37,6 +37,12 @@ public class BeadLoaderTask extends AsyncTask<String, Void, Void> {
     private int mCurrentRow = 1;
 
     private ArrayList<Bead> beads = new ArrayList<>();
+
+    /**
+     * A string used to separate color codes in the file describing
+     * location of the beads on the stand
+     */
+    private final String SEPARATOR = ",";
 
     public BeadLoaderTask(Context context) {
         Log.i(Config.TAG, "Loading beads");
@@ -109,16 +115,16 @@ public class BeadLoaderTask extends AsyncTask<String, Void, Void> {
         if (line.isEmpty()) {
             return;
         }
-        String[] codes = line.split("\\s+");
+        String[] codes = line.split(",");
         int codeLen = codes.length;
         Bead bead;
         if (codeLen == 1) {
             // this is a new wing
-            this.mCurrentWing = codes[0];
+            this.mCurrentWing = codes[0].trim();
             this.mCurrentRow = 1;
         } else {
             for (int i = 0; i < codeLen; i++) {
-                bead = new Bead(codes[i], new Location(mCurrentWing, this.mCurrentRow, i + 1));
+                bead = new Bead(codes[i].trim(), new Location(mCurrentWing, this.mCurrentRow, i + 1));
                 this.beads.add(bead);
             }
             this.mCurrentRow++;

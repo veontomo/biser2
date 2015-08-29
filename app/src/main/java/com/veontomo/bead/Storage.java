@@ -13,7 +13,7 @@ import com.veontomo.bead.api.Location;
 import java.util.List;
 
 /**
- * Reads and write data into db
+ * Reads and write tree into db
  *
  * @since 0.1
  */

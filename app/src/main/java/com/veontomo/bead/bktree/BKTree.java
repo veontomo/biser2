@@ -1,13 +1,11 @@
-package com.veontomo.bead.api;
+package com.veontomo.bead.bktree;
+
 import java.util.*;
 /**
  * implementation of BK-Tree.
  * provide effective approximation search in a given metric space.
  * <p/>
- * User: everpeace _at_ gmail _dot_ com
- * Date: 11/03/21
- * Created by IntelliJ IDEA.
- *
+ * https://github.com/everpeace/bk-tree
  * @param <E> E must be immutable object type, otherwise search function can't work correctly..
  */
 public class BKTree<E> {

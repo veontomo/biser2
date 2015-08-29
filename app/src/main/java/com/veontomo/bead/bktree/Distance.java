@@ -1,4 +1,4 @@
-package com.veontomo.bead.api;
+package com.veontomo.bead.bktree;
 
 
 /**
