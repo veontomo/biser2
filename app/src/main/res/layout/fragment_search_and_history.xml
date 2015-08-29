@@ -19,7 +19,7 @@
         <EditText
             android:id="@+id/editText"
             android:layout_width="100dp"
-            android:inputType="phone"
+            android:inputType="number"
             android:hint="@string/colorCode"
             android:layout_height="wrap_content"
             android:ems="8" />

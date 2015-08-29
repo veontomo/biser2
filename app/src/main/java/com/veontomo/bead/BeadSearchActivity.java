@@ -1,6 +1,7 @@
 package com.veontomo.bead;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -9,9 +10,8 @@ import android.view.MenuItem;
 
 import com.veontomo.bead.Fragments.SearchAndHistoryFragment;
 import com.veontomo.bead.Fragments.SimilarBeadFragment;
-import com.veontomo.bead.Tasks.BeadLoaderTask;
 
-public class BeadSearchActivity extends Activity implements SearchAndHistoryFragment.OnFragmentInteractionListener {
+public class BeadSearchActivity extends Activity implements SearchAndHistoryFragment.OnBeadSearchListener {
 
     private final String marker = "activity: ";
 
@@ -20,39 +20,32 @@ public class BeadSearchActivity extends Activity implements SearchAndHistoryFrag
      */
     private SimilarBeadFragment mSimilarFragment;
 
+    /**
+     * last entered search term
+     */
+    private String searchTerm;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bead_search);
-        // BeadLoaderTask loader = new BeadLoaderTask(getApplicationContext());
-        // loader.execute("locations.txt");
-        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
-
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
     }
 
     @Override
     public void onRestoreInstanceState(@NonNull Bundle savedBundle) {
         super.onRestoreInstanceState(savedBundle);
-        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
     }
 
     @Override
     public void onResume() {
         super.onResume();
         this.mSimilarFragment = (SimilarBeadFragment) getFragmentManager().findFragmentById(R.id.similar);
-        Log.i(Config.TAG, "two pane mode? " + (mSimilarFragment != null));
-        if (getResources().getBoolean(R.bool.dual_pane)) {
-            Log.i(Config.TAG, "two pane mode");
-        } else {
-            Log.i(Config.TAG, "single pane mode");
-        }
     }
 
     @Override
@@ -104,10 +97,18 @@ public class BeadSearchActivity extends Activity implements SearchAndHistoryFrag
     }
 
     @Override
-    public void acceptSearchTerm(String str) {
+    public void onColorCodeReceived(String str) {
+        this.searchTerm = str;
         if (getResources().getBoolean(R.bool.dual_pane)) {
             this.mSimilarFragment.updateView(str);
         }
+    }
+
+    @Override
+    public void onColorCodeAbsent(String str) {
+        Intent intent = new Intent(getApplicationContext(), SimilarBeadActivity.class);
+        intent.putExtra("color", str);
+        startActivity(intent);
     }
 
 

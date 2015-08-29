@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Async task to find beads similar to a given one.
  */
-public class BeadSimilarTask extends AsyncTask<String, Void, String[]> {
+public class SimilarBeadTask extends AsyncTask<String, Void, String[]> {
     private final Storage storage;
     private final ArrayAdapter<String> mAdapter;
 
@@ -23,7 +23,7 @@ public class BeadSimilarTask extends AsyncTask<String, Void, String[]> {
      * @param storage where to perform the search
      * @param adapter to whom the result of the search should be handled
      */
-    public BeadSimilarTask(Storage storage, ArrayAdapter<String> adapter){
+    public SimilarBeadTask(Storage storage, ArrayAdapter<String> adapter){
         this.storage = storage;
         this.mAdapter = adapter;
     }

@@ -25,7 +25,7 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link SearchAndHistoryFragment.OnFragmentInteractionListener} interface
+ * {@link OnBeadSearchListener} interface
  * to handle interaction events.
  */
 public class SearchAndHistoryFragment extends Fragment {
@@ -51,7 +51,7 @@ public class SearchAndHistoryFragment extends Fragment {
 
     private ListView mListView;
 
-    private OnFragmentInteractionListener mCallback;
+    private OnBeadSearchListener mCallback;
 
 
     private BeadAdapter mAdapter;
@@ -66,7 +66,7 @@ public class SearchAndHistoryFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
-        this.mCallback = (OnFragmentInteractionListener) getActivity();
+        this.mCallback = (OnBeadSearchListener) getActivity();
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -103,12 +103,13 @@ public class SearchAndHistoryFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String searchTerm = mEditText.getEditableText().toString();
+                searchTerm = searchTerm.replaceAll("[^0-9.]", "");
                 if (mCallback != null) {
-                    mCallback.acceptSearchTerm(searchTerm);
+                    mCallback.onColorCodeReceived(searchTerm);
                 } else {
-                    Log.i(Config.TAG, "Activity that hosts the fragment does not implement interface SearchAndHistoryFragment.OnFragmentInteractionListener. Therefore, no data exchange is possible.");
+                    Log.i(Config.TAG, "Activity that hosts the fragment does not implement interface SearchAndHistoryFragment.OnBeadSearchListener. Therefore, no data exchange is possible.");
                 }
-                BeadFinderTask worker = new BeadFinderTask(new Storage(getActivity().getApplicationContext()), mAdapter);
+                BeadFinderTask worker = new BeadFinderTask(new Storage(getActivity().getApplicationContext()), mAdapter, mCallback);
                 worker.execute(searchTerm);
             }
         });
@@ -164,17 +165,20 @@ public class SearchAndHistoryFragment extends Fragment {
 
 
     /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
+     * Interface to be implemented if one wants that the fragment is able to comunicate with
+     * its hosting activity.
      */
-    public interface OnFragmentInteractionListener {
-        void acceptSearchTerm(String str);
+    public interface OnBeadSearchListener {
+        /**
+         * action to be executed when the search term is received
+         * @param str search term
+         */
+        void onColorCodeReceived(String str);
+        /**
+         * action to be executed when given color code is not found
+         * @param str color code
+         */
+        void onColorCodeAbsent(String str);
     }
 
 }

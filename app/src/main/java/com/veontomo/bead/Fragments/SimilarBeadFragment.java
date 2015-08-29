@@ -38,6 +38,7 @@ public class SimilarBeadFragment extends Fragment {
      * adapter that is responsible for displaying similar beads in the {@link #mListView list view}.
      */
     private SimilarBeadAdapter mAdapter;
+    private SimilarBeadListener mCallback;
 
     public SimilarBeadFragment() {
         // Required empty public constructor
@@ -52,8 +53,10 @@ public class SimilarBeadFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+//        this.mCallback = (SimilarBeadListener) getActivity();
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam1 = getArguments().getString("color");
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
@@ -69,9 +72,13 @@ public class SimilarBeadFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         this.mListView = (ListView) getView().findViewById(R.id.list_similar);
         this.mAdapter = new SimilarBeadAdapter(getActivity().getApplicationContext(), new ArrayList<String>());
         this.mListView.setAdapter(this.mAdapter);
+        if (mParam1 != null){
+            updateView(mParam1);
+        }
 
 
     }
@@ -91,12 +98,14 @@ public class SimilarBeadFragment extends Fragment {
      * @author veontomo@gmail.com
      */
     public void updateView(String str) {
+        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         ((TextView) getView().findViewById(R.id.color_code)).setText(str);
         findSimilar(str);
 
     }
 
     private void findSimilar(String code) {
+        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         if (this.mSearcher == null){
             Log.i(Config.TAG, "create new mSearcher");
             this.mSearcher = new BeadSearcher(new Storage(getActivity().getApplicationContext()));
@@ -111,18 +120,12 @@ public class SimilarBeadFragment extends Fragment {
 
 
     /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
+     * Interface to be implemented if one wants that the fragment is able to comunicate with
+     * its hosting activity.
      */
-//    public interface OnFragmentInteractionListener {
-//        // TODO: Update argument type and name
-//        public void onFragmentInteraction(Uri uri);
-//    }
+    public interface SimilarBeadListener {
+        void sendColor(String str);
+    }
+
 
 }
