@@ -13,7 +13,6 @@ import com.veontomo.bead.R;
 public class SimilarBeadActivity extends AppCompatActivity implements SimilarBeadFragment.SimilarBeadListener {
 
     private SimilarBeadFragment mSimilarFragment;
-    private String colorCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,9 +21,11 @@ public class SimilarBeadActivity extends AppCompatActivity implements SimilarBea
         Intent intent = getIntent();
         if (intent != null) {
             String code = intent.getStringExtra("color");
-
             if (code != null) {
-                this.colorCode = code;
+                Bundle bundle = new Bundle();
+                bundle.putString("color", code);
+                SimilarBeadFragment frag = new SimilarBeadFragment();
+                frag.setArguments(bundle);
             }
         }
     }
@@ -33,7 +34,6 @@ public class SimilarBeadActivity extends AppCompatActivity implements SimilarBea
     public void onResume() {
         super.onResume();
         this.mSimilarFragment = (SimilarBeadFragment) getFragmentManager().findFragmentById(R.id.activity_similar);
-        this.mSimilarFragment.updateView(this.colorCode);
     }
 
 
