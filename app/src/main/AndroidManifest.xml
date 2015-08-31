@@ -4,6 +4,7 @@
 
     <application
         android:allowBackup="false"
+        android:fullBackupContent="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
@@ -23,10 +24,6 @@
         <activity
             android:name=".SimilarBeadActivity"
             android:label="@string/title_activity_similar_bead" >
-        </activity>
-        <activity
-            android:name=".StartCarActivity"
-            android:label="@string/title_activity_start_car" >
         </activity>
     </application>
 

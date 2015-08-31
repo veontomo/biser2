@@ -36,7 +36,7 @@ public class BeadLoaderTask extends AsyncTask<String, Void, Void> {
      */
     private int mCurrentRow = 1;
 
-    private ArrayList<Bead> beads = new ArrayList<>();
+    private final ArrayList<Bead> beads = new ArrayList<>();
 
     /**
      * A string used to separate color codes in the file describing
@@ -52,7 +52,7 @@ public class BeadLoaderTask extends AsyncTask<String, Void, Void> {
 
     @Override
     protected Void doInBackground(String... filenames) {
-        if (!this.mStorage.tableExists(Storage.LocationTable.TABLE_NAME)) {
+        if (!this.mStorage.beadTableExists()) {
             Log.i(Config.TAG, "table  NOT exists");
             for (String filename : filenames) {
                 Log.i(Config.TAG, "Loading from file " + filename);
@@ -115,7 +115,7 @@ public class BeadLoaderTask extends AsyncTask<String, Void, Void> {
         if (line.isEmpty()) {
             return;
         }
-        String[] codes = line.split(",");
+        String[] codes = line.split(SEPARATOR);
         int codeLen = codes.length;
         Bead bead;
         if (codeLen == 1) {

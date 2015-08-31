@@ -1,31 +1,28 @@
 package com.veontomo.bead;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.veontomo.bead.Fragments.SimilarBeadFragment;
-import com.veontomo.bead.R;
 
-public class SimilarBeadActivity extends AppCompatActivity implements SimilarBeadFragment.SimilarBeadListener {
+public class SimilarBeadActivity extends Activity implements SimilarBeadFragment.SimilarBeadListener {
 
-    private SimilarBeadFragment mSimilarFragment;
+    private final String marker = "similar bead activity: ";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_similar_bead);
+        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         Intent intent = getIntent();
         if (intent != null) {
             String code = intent.getStringExtra("color");
             if (code != null) {
-                Bundle bundle = new Bundle();
-                bundle.putString("color", code);
-                SimilarBeadFragment frag = new SimilarBeadFragment();
-                frag.setArguments(bundle);
+                initialize(code);
             }
         }
     }
@@ -33,7 +30,7 @@ public class SimilarBeadActivity extends AppCompatActivity implements SimilarBea
     @Override
     public void onResume() {
         super.onResume();
-        this.mSimilarFragment = (SimilarBeadFragment) getFragmentManager().findFragmentById(R.id.activity_similar);
+        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
     }
 
 
@@ -59,8 +56,10 @@ public class SimilarBeadActivity extends AppCompatActivity implements SimilarBea
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void sendColor(String str) {
 
+    @Override
+    public void initialize(String str) {
+        SimilarBeadFragment ft = (SimilarBeadFragment) getFragmentManager().findFragmentById(R.id.activity_similar);
+        ft.setCode(str);
     }
 }

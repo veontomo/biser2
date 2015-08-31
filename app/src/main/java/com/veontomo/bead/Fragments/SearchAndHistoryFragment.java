@@ -30,14 +30,6 @@ import java.util.ArrayList;
  */
 public class SearchAndHistoryFragment extends Fragment {
     private final String marker = "fragment: ";
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     /**
      * search button
@@ -67,10 +59,6 @@ public class SearchAndHistoryFragment extends Fragment {
         super.onCreate(savedInstanceState);
         Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         this.mCallback = (OnBeadSearchListener) getActivity();
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
         BeadLoaderTask loader = new BeadLoaderTask(getActivity().getApplicationContext());
         loader.execute("locations.txt");
 

@@ -80,9 +80,9 @@ public class Storage extends SQLiteOpenHelper {
      *
      * @since 0.1
      */
-    public boolean tableExists(final String tableName) {
+    public boolean beadTableExists() {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + tableName, null);
+        Cursor cursor = db.rawQuery("SELECT * FROM " + LocationTable.TABLE_NAME, null);
         if (cursor == null) {
             return false;
         }

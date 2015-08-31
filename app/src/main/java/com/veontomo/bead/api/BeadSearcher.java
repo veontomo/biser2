@@ -1,9 +1,6 @@
 package com.veontomo.bead.api;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
-
-import com.veontomo.bead.Config;
 import com.veontomo.bead.Storage;
 import com.veontomo.bead.Tasks.SimilarBeadFinderTask;
 import com.veontomo.bead.bktree.BKTree;
@@ -16,18 +13,10 @@ import com.veontomo.bead.bktree.Levenshtein;
 public class BeadSearcher {
     private final Storage storage;
 
-    private String[] items;
-
-    private SimilarBeadFinderTask worker;
     /**
      * cached array of all color codes
      */
-    private BKTree<String> tree;
-
-    /**
-     * implementation of distance between two strings
-     */
-    private Distance<String> distance;
+    private static BKTree<String> tree;
 
     public BeadSearcher(final Storage storage) {
         this.storage = storage;
@@ -40,8 +29,8 @@ public class BeadSearcher {
      * @param adapter to whom handle the result
      */
     public void fillInWithSimilar(String code, SimilarBeadAdapter adapter) {
-        this.worker = new SimilarBeadFinderTask(storage, adapter, this);
-        this.worker.execute(code);
+        SimilarBeadFinderTask worker = new SimilarBeadFinderTask(storage, adapter, this);
+        worker.execute(code);
     }
 
     /**
@@ -60,16 +49,14 @@ public class BeadSearcher {
      * @param data
      */
     public void buildTree(@NonNull final String[] data) {
-        distance = new Levenshtein();
+        Distance<String> distance = new Levenshtein();
         int size = data.length;
-        Log.i(Config.TAG, "constructing tree for " + size + " elements");
         if (size > 0) {
             // use the first element of the array as the root
             tree = new BKTree<>(distance, data[0]);
         }
         // add the other elements of the array
         for (int i = 1; i < size; i++) {
-            Log.i(Config.TAG, "inserting " + data[i]);
             tree.insert(data[i]);
         }
     }

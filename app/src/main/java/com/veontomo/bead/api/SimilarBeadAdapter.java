@@ -55,14 +55,6 @@ public class SimilarBeadAdapter extends BaseAdapter {
 
     }
 
-    /**
-     * Prepends list to existing {@link #mItems items}
-     */
-    public void prepend(List<String> items) {
-        this.mItems.addAll(0, items);
-        notifyDataSetChanged();
-    }
-
     public void setItems(List<String> list) {
         this.mItems.clear();
         this.mItems.addAll(0, list);

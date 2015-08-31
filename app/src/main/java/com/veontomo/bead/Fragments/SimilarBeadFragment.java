@@ -22,14 +22,12 @@ import java.util.ArrayList;
  *
  */
 public class SimilarBeadFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-    private final String marker = "similar: ";
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private final String marker = "similar bead fragment " +  System.currentTimeMillis()  + ": ";
+
+    /**
+     * color codes similar to this one are supposed to be displayed by the fragment
+     */
+    private String colorCode;
     /**
      * list view that contains information about similar beads
      */
@@ -38,7 +36,7 @@ public class SimilarBeadFragment extends Fragment {
      * adapter that is responsible for displaying similar beads in the {@link #mListView list view}.
      */
     private SimilarBeadAdapter mAdapter;
-    private SimilarBeadListener mCallback;
+
 
     public SimilarBeadFragment() {
         // Required empty public constructor
@@ -49,21 +47,21 @@ public class SimilarBeadFragment extends Fragment {
      */
     private BeadSearcher mSearcher;
 
+    public void setCode(String code) {
+        this.colorCode = code;
+    }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
-//        this.mCallback = (SimilarBeadListener) getActivity();
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString("color");
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        Log.i(Config.TAG, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.i(Config.TAG, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_similar_bead, container, false);
     }
@@ -72,21 +70,20 @@ public class SimilarBeadFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        Log.i(Config.TAG, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         this.mListView = (ListView) getView().findViewById(R.id.list_similar);
         this.mAdapter = new SimilarBeadAdapter(getActivity().getApplicationContext(), new ArrayList<String>());
         this.mListView.setAdapter(this.mAdapter);
-        if (mParam1 != null){
-            updateView(mParam1);
+        if (this.colorCode != null) {
+            updateView(this.colorCode);
         }
-
-
     }
 
 
 
+
     @Override
-    public void onStop(){
+    public void onStop() {
         this.mListView.setAdapter(null);
         this.mAdapter = null;
         this.mListView = null;
@@ -98,15 +95,15 @@ public class SimilarBeadFragment extends Fragment {
      * @author veontomo@gmail.com
      */
     public void updateView(String str) {
-        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        Log.i(Config.TAG, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         ((TextView) getView().findViewById(R.id.color_code)).setText(str);
         findSimilar(str);
 
     }
 
     private void findSimilar(String code) {
-        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
-        if (this.mSearcher == null){
+        Log.i(Config.TAG, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        if (this.mSearcher == null) {
             Log.i(Config.TAG, "create new mSearcher");
             this.mSearcher = new BeadSearcher(new Storage(getActivity().getApplicationContext()));
         } else {
@@ -114,9 +111,6 @@ public class SimilarBeadFragment extends Fragment {
         }
         this.mSearcher.fillInWithSimilar(code, this.mAdapter);
     }
-//        SimilarBeadFinderTask task = new SimilarBeadFinderTask(this.mAdapter);
-//        task.execute(code);
-
 
 
     /**
@@ -124,7 +118,7 @@ public class SimilarBeadFragment extends Fragment {
      * its hosting activity.
      */
     public interface SimilarBeadListener {
-        void sendColor(String str);
+        void initialize(String str);
     }
 
 

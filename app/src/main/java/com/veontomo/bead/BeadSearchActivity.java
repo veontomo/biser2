@@ -20,12 +20,6 @@ public class BeadSearchActivity extends Activity implements SearchAndHistoryFrag
      */
     private SimilarBeadFragment mSimilarFragment;
 
-    /**
-     * last entered search term
-     */
-    private String searchTerm;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,7 +92,6 @@ public class BeadSearchActivity extends Activity implements SearchAndHistoryFrag
 
     @Override
     public void onColorCodeReceived(String str) {
-        this.searchTerm = str;
         if (getResources().getBoolean(R.bool.dual_pane)) {
             this.mSimilarFragment.updateView(str);
         }
@@ -106,9 +99,11 @@ public class BeadSearchActivity extends Activity implements SearchAndHistoryFrag
 
     @Override
     public void onColorCodeAbsent(String str) {
-        Intent intent = new Intent(getApplicationContext(), SimilarBeadActivity.class);
-        intent.putExtra("color", str);
-        startActivity(intent);
+        if (!getResources().getBoolean(R.bool.dual_pane)) {
+            Intent intent = new Intent(getApplicationContext(), SimilarBeadActivity.class);
+            intent.putExtra("color", str);
+            startActivity(intent);
+        }
     }
 
 

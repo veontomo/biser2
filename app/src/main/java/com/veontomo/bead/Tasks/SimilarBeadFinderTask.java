@@ -5,11 +5,8 @@ import android.util.Log;
 
 import com.veontomo.bead.Config;
 import com.veontomo.bead.Storage;
-import com.veontomo.bead.bktree.BKTree;
 import com.veontomo.bead.api.BeadSearcher;
-import com.veontomo.bead.bktree.Distance;
 import com.veontomo.bead.api.SimilarBeadAdapter;
-import com.veontomo.bead.bktree.Levenshtein;
 
 import java.util.ArrayList;
 import java.util.List;

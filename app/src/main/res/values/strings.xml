@@ -6,6 +6,4 @@
     <string name="find_bead">Find</string>
     <string name="colorCode">color code</string>
     <string name="title_activity_similar_bead">Similar Beads</string>
-    <string name="title_activity_start_car">StartCarActivity</string>
-    <string name="hello_world">Hello world!</string>
 </resources>

@@ -24,7 +24,7 @@ public final class BeadAdapter extends BaseAdapter {
     /**
      * Array of beads to display
      */
-    private List<Bead> mItems;
+    private final List<Bead> mItems;
 
     /**
      * Number of different layouts
