@@ -32,31 +32,27 @@ import java.util.List;
  * to handle interaction events.
  */
 public class SearchAndHistoryFragment extends Fragment {
-    private final String marker = "search & history fragment: ";
-
-    /**
-     * search button
-     */
-    private ImageButton mButton;
-
-    /**
-     * edit text view in which the search term is to be typed
-     */
-    private EditText mEditText;
-
-    private ListView mListView;
-
-    private OnBeadSearchListener mCallback;
-
-
-    private BeadAdapter mAdapter;
-
     /**
      * name of the key under which search terms are saved in the bundle
      */
     private static final String SEARCH_TERMS_KEY = "searchTerms";
-
+    private final String marker = "search & history fragment: ";
+    /**
+     * search button
+     */
+    private ImageButton mButton;
+    /**
+     * edit text view in which the search term is to be typed
+     */
+    private EditText mEditText;
+    private ListView mListView;
+    private OnBeadSearchListener mCallback;
+    private BeadAdapter mAdapter;
     private ArrayList<String> searchTerms;
+
+    public SearchAndHistoryFragment() {
+        // Required empty public constructor
+    }
 
     @Override
     public void onAttach(Context context) {
@@ -107,13 +103,16 @@ public class SearchAndHistoryFragment extends Fragment {
             public void onClick(View v) {
                 String searchTerm = mEditText.getEditableText().toString();
                 searchTerm = searchTerm.replaceAll("[^0-9.]", "");
+                mEditText.setText("");
                 if (mCallback != null) {
                     mCallback.onColorCodeReceived(searchTerm);
                 } else {
                     Log.i(Config.TAG, "Activity that hosts the fragment does not implement interface SearchAndHistoryFragment.OnBeadSearchListener. Therefore, no data exchange is possible.");
                 }
-                BeadFinderTask worker = new BeadFinderTask(new Storage(getActivity().getApplicationContext()), mAdapter, mCallback);
-                worker.execute(searchTerm);
+                if (!searchTerm.isEmpty()) {
+                    BeadFinderTask worker = new BeadFinderTask(new Storage(getActivity().getApplicationContext()), mAdapter, mCallback);
+                    worker.execute(searchTerm);
+                }
             }
         });
 
@@ -187,11 +186,6 @@ public class SearchAndHistoryFragment extends Fragment {
         Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         super.onDetach();
 //        mCallback = null;
-    }
-
-
-    public SearchAndHistoryFragment() {
-        // Required empty public constructor
     }
 
 
