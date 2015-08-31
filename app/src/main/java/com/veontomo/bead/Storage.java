@@ -6,10 +6,14 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
+import android.text.TextUtils;
+import android.util.Log;
 
 import com.veontomo.bead.api.Bead;
 import com.veontomo.bead.api.Location;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -92,34 +96,45 @@ public class Storage extends SQLiteOpenHelper {
         return result;
     }
 
-    /**
-     * Returns a Bead instance corresponding to given color code.
-     *
-     * @param code color code
-     */
-    public Bead beadByColor(String code) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Location loc = null;
-        Cursor cursor =
-                db.query(LocationTable.TABLE_NAME,
-                        new String[]{LocationTable.WING_NAME, LocationTable.COL_NAME, LocationTable.ROW_NAME},
-                        LocationTable.COLOR_CODE_NAME + " = ?",
-                        new String[]{String.valueOf(code)},
-                        null,
-                        null,
-                        null,
-                        null);
 
-        if (cursor.moveToFirst()) {
-            String wing = cursor.getString(cursor.getColumnIndex(LocationTable.WING_NAME));
-            int row = cursor.getInt(cursor.getColumnIndex(LocationTable.ROW_NAME));
-            int col = cursor.getInt(cursor.getColumnIndex(LocationTable.COL_NAME));
-            loc = new Location(wing, row, col);
+    /**
+     * Returns a list of Bead instance corresponding to given color codes.
+     *
+     * @param codes color code
+     */
+    public List<Bead> beadByColors(String[] codes) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Location loc;
+        String wing, code;
+        int row, col;
+        List<Bead> beads = new ArrayList<>();
+        String[] whereArray = new String[codes.length];
+        for (int i = 0; i < codes.length; i++){
+            whereArray[i] = LocationTable.COLOR_CODE_NAME + " = " + codes[i];
         }
-        Bead bead = new Bead(code, loc);
+//        Arrays.fill(whereArray, LocationTable.COLOR_CODE_NAME + " = ?");
+//        String stmt = "SELECT * FROM " + LocationTable.TABLE_NAME + " WHERE " + TextUtils.join(" OR ", whereArray);
+//        Cursor cursor = db.rawQuery(stmt, codes);
+        String stmt = "SELECT * FROM " + LocationTable.TABLE_NAME + " WHERE " +TextUtils.join(" OR ", whereArray) + ";";
+        Cursor cursor = db.rawQuery(stmt, null);
+        Log.i(Config.TAG, "cursor contains " + cursor.getCount() + ", where: " + stmt);
+        int wing_index = cursor.getColumnIndex(LocationTable.WING_NAME),
+                code_index = cursor.getColumnIndex(LocationTable.COLOR_CODE_NAME),
+                row_index = cursor.getColumnIndex(LocationTable.ROW_NAME),
+                col_index = cursor.getColumnIndex(LocationTable.COL_NAME);
+        // TODO: make in such a way that the result contains as well those beads that are not present in DB (with null location)
+        while (cursor.moveToNext()) {
+            code = cursor.getString(code_index);
+            wing = cursor.getString(wing_index);
+            row = cursor.getInt(row_index);
+            col = cursor.getInt(col_index);
+            loc = new Location(wing, row, col);
+            beads.add(new Bead(code, loc));
+        }
+
         cursor.close();
         db.close();
-        return bead;
+        return beads;
     }
 
     /**

@@ -99,11 +99,11 @@ public class BeadSearchActivity extends Activity implements SearchAndHistoryFrag
 
     @Override
     public void onColorCodeAbsent(String str) {
-        if (!getResources().getBoolean(R.bool.dual_pane)) {
-            Intent intent = new Intent(getApplicationContext(), SimilarBeadActivity.class);
-            intent.putExtra("color", str);
-            startActivity(intent);
-        }
+//        if (!getResources().getBoolean(R.bool.dual_pane)) {
+//            Intent intent = new Intent(getApplicationContext(), SimilarBeadActivity.class);
+//            intent.putExtra("color", str);
+//            startActivity(intent);
+//        }
     }
 
 

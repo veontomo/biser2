@@ -1,8 +1,8 @@
 package com.veontomo.bead.Fragments;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +20,7 @@ import com.veontomo.bead.api.Bead;
 import com.veontomo.bead.api.BeadAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -29,7 +30,7 @@ import java.util.ArrayList;
  * to handle interaction events.
  */
 public class SearchAndHistoryFragment extends Fragment {
-    private final String marker = "fragment: ";
+    private final String marker = "search & history fragment: ";
 
     /**
      * search button
@@ -48,6 +49,13 @@ public class SearchAndHistoryFragment extends Fragment {
 
     private BeadAdapter mAdapter;
 
+    /**
+     * name of the key under which search terms are saved in the bundle
+     */
+    private static final String SEARCH_TERMS_KEY = "searchTerms";
+
+    private ArrayList<String> searchTerms;
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -59,6 +67,10 @@ public class SearchAndHistoryFragment extends Fragment {
         super.onCreate(savedInstanceState);
         Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         this.mCallback = (OnBeadSearchListener) getActivity();
+        if (savedInstanceState != null) {
+            searchTerms = savedInstanceState.getStringArrayList(SEARCH_TERMS_KEY);
+            Log.i(Config.TAG, this.marker + " found " + searchTerms.size() + " elements in bundle");
+        }
         BeadLoaderTask loader = new BeadLoaderTask(getActivity().getApplicationContext());
         loader.execute("locations.txt");
 
@@ -98,9 +110,18 @@ public class SearchAndHistoryFragment extends Fragment {
                     Log.i(Config.TAG, "Activity that hosts the fragment does not implement interface SearchAndHistoryFragment.OnBeadSearchListener. Therefore, no data exchange is possible.");
                 }
                 BeadFinderTask worker = new BeadFinderTask(new Storage(getActivity().getApplicationContext()), mAdapter, mCallback);
-                worker.execute(searchTerm);
+                worker.execute(searchTerm, "46102");
             }
         });
+
+        List<Bead> beads = new ArrayList<>();
+        if (this.searchTerms != null) {
+            for (String code : searchTerms) {
+                beads.add(new Bead(code, null));
+            }
+            mAdapter.prependItems(beads);
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override
@@ -113,6 +134,14 @@ public class SearchAndHistoryFragment extends Fragment {
     public void onPause() {
         Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         super.onPause();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.i(Config.TAG, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        Log.i(Config.TAG, marker + " saving " + mAdapter.colorCodes().size() + "search terms");
+        outState.putStringArrayList(SEARCH_TERMS_KEY, mAdapter.colorCodes());
     }
 
     @Override
@@ -159,11 +188,14 @@ public class SearchAndHistoryFragment extends Fragment {
     public interface OnBeadSearchListener {
         /**
          * action to be executed when the search term is received
+         *
          * @param str search term
          */
         void onColorCodeReceived(String str);
+
         /**
          * action to be executed when given color code is not found
+         *
          * @param str color code
          */
         void onColorCodeAbsent(String str);

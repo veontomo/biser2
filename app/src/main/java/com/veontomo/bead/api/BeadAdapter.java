@@ -138,11 +138,24 @@ public final class BeadAdapter extends BaseAdapter {
     }
 
     /**
-     * Inserts item at the beginning of {@link #mItems list of existing items}.
+     * Inserts items at the beginning of {@link #mItems list of existing items}.
      */
-    public void prependItem(Bead bead) {
-        this.mItems.add(0, bead);
+    public void prependItems(List<Bead> beads) {
+        this.mItems.clear();
+        this.mItems.addAll(0, beads);
         notifyDataSetChanged();
+    }
+
+    /**
+     * Returns color codes stored in {@link #mItems adapter items}.
+     * @return
+     */
+    public ArrayList<String> colorCodes() {
+        ArrayList<String> result = new ArrayList<>();
+        for (Bead item: this.mItems){
+            result.add(item.colorCode);
+        }
+        return result;
     }
 
     static class HolderBeadPresent {

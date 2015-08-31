@@ -7,6 +7,8 @@ import com.veontomo.bead.Storage;
 import com.veontomo.bead.api.Bead;
 import com.veontomo.bead.api.BeadAdapter;
 
+import java.util.List;
+
 /**
  * Finds bead with given color code in database
  */
@@ -18,7 +20,7 @@ public class BeadFinderTask extends AsyncTask<String, Void, Void> {
     private final BeadAdapter mCallback;
     private final SearchAndHistoryFragment.OnBeadSearchListener handler;
 
-    private Bead searchResult;
+    private List<Bead> searchResult;
 
     /**
      * Constructor.
@@ -32,15 +34,15 @@ public class BeadFinderTask extends AsyncTask<String, Void, Void> {
     }
     @Override
     protected Void doInBackground(String... params) {
-        this.searchResult = this.storage.beadByColor(params[0]);
+        this.searchResult = this.storage.beadByColors(params);
         return null;
     }
 
     @Override
     protected void onPostExecute(Void arg){
-        if (this.searchResult.loc == null){
-            this.handler.onColorCodeAbsent(this.searchResult.colorCode);
+        if (this.searchResult.size() == 1 && this.searchResult.get(0).loc == null){
+            this.handler.onColorCodeAbsent(this.searchResult.get(0).colorCode);
         }
-        mCallback.prependItem(this.searchResult );
+        mCallback.prependItems(this.searchResult);
     }
 }
