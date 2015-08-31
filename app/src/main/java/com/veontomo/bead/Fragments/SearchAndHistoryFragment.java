@@ -128,7 +128,7 @@ public class SearchAndHistoryFragment extends Fragment {
 
     private void setUpHeaderView() {
         View view = View.inflate(getActivity().getApplicationContext(), R.layout.row_bead_present, null);
-        view.setBackgroundColor(Color.GRAY);
+        view.setBackgroundColor(793229873);
         TextView colorTV = (TextView) view.findViewById(R.id.bead_present_color_code);
         colorTV.setText(R.string.colorCode);
         TextView locationTV = (TextView) view.findViewById(R.id.bead_present_location);
