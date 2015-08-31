@@ -141,7 +141,6 @@ public final class BeadAdapter extends BaseAdapter {
      * Inserts items at the beginning of {@link #mItems list of existing items}.
      */
     public void prependItems(List<Bead> beads) {
-        this.mItems.clear();
         this.mItems.addAll(0, beads);
         notifyDataSetChanged();
     }

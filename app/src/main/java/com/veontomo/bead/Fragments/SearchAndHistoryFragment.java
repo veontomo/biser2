@@ -2,6 +2,7 @@ package com.veontomo.bead.Fragments;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.veontomo.bead.Config;
 import com.veontomo.bead.R;
@@ -98,6 +100,7 @@ public class SearchAndHistoryFragment extends Fragment {
         this.mEditText = (EditText) getView().findViewById(R.id.editText);
         this.mListView = (ListView) getView().findViewById(R.id.searchHistory);
         this.mAdapter = new BeadAdapter(getActivity().getApplicationContext(), new ArrayList<Bead>());
+        setUpHeaderView();
         this.mListView.setAdapter(this.mAdapter);
         this.mButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,6 +125,17 @@ public class SearchAndHistoryFragment extends Fragment {
             mAdapter.prependItems(beads);
             mAdapter.notifyDataSetChanged();
         }
+    }
+
+    private void setUpHeaderView() {
+        View view = View.inflate(getActivity().getApplicationContext(), R.layout.row_bead_present, null);
+        view.setBackgroundColor(Color.GRAY);
+        TextView colorTV = (TextView) view.findViewById(R.id.bead_present_color_code);
+        colorTV.setText(R.string.colorCode);
+        TextView locationTV = (TextView) view.findViewById(R.id.bead_present_location);
+        locationTV.setText(R.string.location);
+        mListView.addHeaderView(view);
+
     }
 
     @Override

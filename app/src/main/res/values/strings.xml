@@ -4,6 +4,7 @@
     <string name="title_activity_bead_search">Bead Search</string>
 
     <string name="find_bead">Find</string>
-    <string name="colorCode">color code</string>
+    <string name="colorCode">color</string>
     <string name="title_activity_similar_bead">Similar Beads</string>
+    <string name="location">position</string>
 </resources>
