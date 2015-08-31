@@ -110,7 +110,7 @@ public class SearchAndHistoryFragment extends Fragment {
                     Log.i(Config.TAG, "Activity that hosts the fragment does not implement interface SearchAndHistoryFragment.OnBeadSearchListener. Therefore, no data exchange is possible.");
                 }
                 BeadFinderTask worker = new BeadFinderTask(new Storage(getActivity().getApplicationContext()), mAdapter, mCallback);
-                worker.execute(searchTerm, "46102");
+                worker.execute(searchTerm);
             }
         });
 
