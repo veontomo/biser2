@@ -12,12 +12,21 @@ import com.veontomo.bead.Fragments.SimilarBeadFragment;
 public class SimilarBeadActivity extends Activity implements SimilarBeadFragment.SimilarBeadListener {
 
     private final String marker = "similar bead activity: ";
+    private SimilarBeadFragment mFragment;
+    /**
+     * name of the key under which the {@link #mFragment fragment} is stored in the bundle
+     */
+    private static final String FRAGMENT_KEY = "fragmentKey";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_similar_bead);
         Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        if (savedInstanceState != null) {
+            Log.i(Config.TAG, this.marker + " restore fragment");
+            mFragment = (SimilarBeadFragment) getFragmentManager().getFragment(savedInstanceState, FRAGMENT_KEY);
+        }
         Intent intent = getIntent();
         if (intent != null) {
             String code = intent.getStringExtra("color");
@@ -31,6 +40,15 @@ public class SimilarBeadActivity extends Activity implements SimilarBeadFragment
     public void onResume() {
         super.onResume();
         Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        getFragmentManager().putFragment(outState, FRAGMENT_KEY, mFragment);
+
+
     }
 
 
@@ -59,7 +77,7 @@ public class SimilarBeadActivity extends Activity implements SimilarBeadFragment
 
     @Override
     public void initialize(String str) {
-        SimilarBeadFragment ft = (SimilarBeadFragment) getFragmentManager().findFragmentById(R.id.activity_similar);
-        ft.setCode(str);
+        mFragment = (SimilarBeadFragment) getFragmentManager().findFragmentById(R.id.activity_similar);
+        mFragment.setCode(str);
     }
 }

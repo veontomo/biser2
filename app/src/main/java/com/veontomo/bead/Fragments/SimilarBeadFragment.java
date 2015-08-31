@@ -1,7 +1,7 @@
 package com.veontomo.bead.Fragments;
 
-import android.os.Bundle;
 import android.app.Fragment;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,8 +10,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.veontomo.bead.Config;
-import com.veontomo.bead.Storage;
 import com.veontomo.bead.R;
+import com.veontomo.bead.Storage;
 import com.veontomo.bead.api.BeadSearcher;
 import com.veontomo.bead.api.SimilarBeadAdapter;
 
@@ -22,12 +22,17 @@ import java.util.ArrayList;
  *
  */
 public class SimilarBeadFragment extends Fragment {
-    private final String marker = "similar bead fragment " +  System.currentTimeMillis()  + ": ";
+    private final String marker = "similar bead fragment " + System.currentTimeMillis() + ": ";
 
     /**
      * color codes similar to this one are supposed to be displayed by the fragment
      */
     private String colorCode;
+    /**
+     * name of the key under which {@link #colorCode initialization parameter} gets saved in the bundle
+     */
+
+    private static final String COLOR_CODE_KEY = "inputCode";
     /**
      * list view that contains information about similar beads
      */
@@ -58,15 +63,27 @@ public class SimilarBeadFragment extends Fragment {
         Log.i(Config.TAG, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Log.i(Config.TAG, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_similar_bead, container, false);
     }
 
 
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        Log.i(Config.TAG, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        if (savedInstanceState != null) {
+            Log.i(Config.TAG, marker + " saved instance is found");
+            this.colorCode = savedInstanceState.getString(COLOR_CODE_KEY);
+        } else {
+            Log.i(Config.TAG, marker + "no saved instance is found");
+        }
+    }
     @Override
     public void onStart() {
         super.onStart();
@@ -79,7 +96,17 @@ public class SimilarBeadFragment extends Fragment {
         }
     }
 
-
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.i(Config.TAG, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        if (this.colorCode != null) {
+            Log.i(Config.TAG, marker + " saving code " + this.colorCode);
+            outState.putString(COLOR_CODE_KEY, this.colorCode);
+        } else {
+            Log.i(Config.TAG, marker + " no code to save");
+        }
+    }
 
 
     @Override
