@@ -108,5 +108,12 @@ public class BeadSearchActivity extends Activity implements SearchAndHistoryFrag
         }
     }
 
+    @Override
+    public void OnColorCodeClick(String str) {
+        if (getResources().getBoolean(R.bool.dual_pane)) {
+            this.mSimilarFragment.updateView(str);
+        }
+    }
+
 
 }

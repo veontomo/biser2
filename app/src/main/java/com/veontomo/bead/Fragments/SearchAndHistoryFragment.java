@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -99,6 +100,21 @@ public class SearchAndHistoryFragment extends Fragment {
         this.mAdapter = new BeadAdapter(getActivity().getApplicationContext(), new ArrayList<Bead>());
         setUpHeaderView();
         this.mListView.setAdapter(this.mAdapter);
+        this.mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if (mCallback == null) {
+                    return;
+                }
+                TextView tv = (TextView) view.findViewById(R.id.bead_present_color_code);
+                if (tv == null) {
+                    tv = (TextView) view.findViewById(R.id.bead_absent_color_code);
+                }
+                if (tv != null) {
+                    mCallback.OnColorCodeClick(tv.getText().toString());
+                }
+            }
+        });
         this.mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -211,6 +227,12 @@ public class SearchAndHistoryFragment extends Fragment {
          * @param str color code
          */
         void onColorCodeAbsent(String str);
+
+        /**
+         * action to be executed when a color with given code is clicked
+         * @param str color code
+         */
+        void OnColorCodeClick(String str);
     }
 
 }
