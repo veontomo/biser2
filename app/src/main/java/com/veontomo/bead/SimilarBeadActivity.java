@@ -80,4 +80,9 @@ public class SimilarBeadActivity extends Activity implements SimilarBeadFragment
         mFragment = (SimilarBeadFragment) getFragmentManager().findFragmentById(R.id.activity_similar);
         mFragment.setCode(str);
     }
+
+    @Override
+    public void OnSimilarColorCodeClick(String str) {
+        // TODO
+    }
 }

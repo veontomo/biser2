@@ -11,7 +11,7 @@ import android.view.MenuItem;
 import com.veontomo.bead.Fragments.SearchAndHistoryFragment;
 import com.veontomo.bead.Fragments.SimilarBeadFragment;
 
-public class BeadSearchActivity extends Activity implements SearchAndHistoryFragment.OnBeadSearchListener {
+public class BeadSearchActivity extends Activity implements SearchAndHistoryFragment.OnBeadSearchListener, SimilarBeadFragment.SimilarBeadListener {
 
     private final String marker = "activity: ";
 
@@ -19,6 +19,11 @@ public class BeadSearchActivity extends Activity implements SearchAndHistoryFrag
      * fragment that displays similar bead colors
      */
     private SimilarBeadFragment mSimilarFragment;
+
+    /**
+     * fragment that performs search of bead colors
+     */
+    private SearchAndHistoryFragment mSearchFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +45,13 @@ public class BeadSearchActivity extends Activity implements SearchAndHistoryFrag
     public void onResume() {
         super.onResume();
         this.mSimilarFragment = (SimilarBeadFragment) getFragmentManager().findFragmentById(R.id.similar);
+        this.mSearchFragment = (SearchAndHistoryFragment) getFragmentManager().findFragmentById(R.id.search);
     }
 
     @Override
     public void onPause() {
         Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        this.mSearchFragment = null;
         this.mSimilarFragment = null;
         super.onPause();
     }
@@ -116,4 +123,15 @@ public class BeadSearchActivity extends Activity implements SearchAndHistoryFrag
     }
 
 
+    @Override
+    public void initialize(String str) {
+        /// TODO
+    }
+
+    @Override
+    public void OnSimilarColorCodeClick(String str) {
+        if (getResources().getBoolean(R.bool.dual_pane)) {
+            this.mSearchFragment.insert(str);
+        }
+    }
 }

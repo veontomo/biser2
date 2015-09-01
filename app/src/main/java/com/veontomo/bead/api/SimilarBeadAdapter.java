@@ -57,7 +57,7 @@ public class SimilarBeadAdapter extends BaseAdapter {
 
     public void setItems(List<String> list) {
         this.mItems.clear();
-        this.mItems.addAll(0, list);
+        this.mItems.addAll(list);
         notifyDataSetChanged();
     }
 

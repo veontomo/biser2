@@ -8,7 +8,9 @@ import com.veontomo.bead.bktree.Distance;
 import com.veontomo.bead.bktree.Levenshtein;
 
 /**
- * Performs bead-related search in database
+ * Performs bead-related search in database.
+ *
+ * Internally, this class uses an async task to perform search.
  */
 public class BeadSearcher {
     private final Storage storage;
@@ -17,9 +19,14 @@ public class BeadSearcher {
      * cached array of all color codes
      */
     private static BKTree<String> tree;
+    /**
+     * distance function
+     */
+    public final Distance<String> distance;
 
     public BeadSearcher(final Storage storage) {
         this.storage = storage;
+        this.distance = new Levenshtein();
     }
 
     /**
@@ -49,7 +56,7 @@ public class BeadSearcher {
      * @param data
      */
     public void buildTree(@NonNull final String[] data) {
-        Distance<String> distance = new Levenshtein();
+
         int size = data.length;
         if (size > 0) {
             // use the first element of the array as the root

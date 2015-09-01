@@ -127,15 +127,7 @@ public class SearchAndHistoryFragment extends Fragment {
                     Log.i(Config.TAG, "Activity that hosts the fragment does not implement interface SearchAndHistoryFragment.OnBeadSearchListener. Therefore, no data exchange is possible.");
                 }
                 if (!searchTerm.isEmpty()) {
-                    int index = mAdapter.getPositionByColorCode(searchTerm);
-                    if (index != -1) {
-                        Bead bead = mAdapter.removeItem(index);
-                        mAdapter.prependItem(bead);
-                        mAdapter.notifyDataSetChanged();
-                    } else {
-                        BeadFinderTask worker = new BeadFinderTask(new Storage(getActivity().getApplicationContext()), mAdapter, mCallback);
-                        worker.execute(searchTerm);
-                    }
+                    updateSearchResult(searchTerm);
                 }
             }
         });
@@ -144,6 +136,19 @@ public class SearchAndHistoryFragment extends Fragment {
             mAdapter.inflate(searchTerms);
             mAdapter.notifyDataSetChanged();
         }
+    }
+
+    private void updateSearchResult(String code) {
+        int index = mAdapter.getPositionByColorCode(code);
+        if (index != -1) {
+            Bead bead = mAdapter.removeItem(index);
+            mAdapter.prependItem(bead);
+            mAdapter.notifyDataSetChanged();
+        } else {
+            BeadFinderTask worker = new BeadFinderTask(new Storage(getActivity().getApplicationContext()), mAdapter, mCallback);
+            worker.execute(code);
+        }
+
     }
 
     private void setUpHeaderView() {
@@ -208,6 +213,14 @@ public class SearchAndHistoryFragment extends Fragment {
 //        mCallback = null;
     }
 
+    /**
+     * Performs search of given color code
+     * @param str color code to search
+     */
+    public void insert(String str) {
+        updateSearchResult(str);
+    }
+
 
     /**
      * Interface to be implemented if one wants that the fragment is able to comunicate with
@@ -230,6 +243,7 @@ public class SearchAndHistoryFragment extends Fragment {
 
         /**
          * action to be executed when a color with given code is clicked
+         *
          * @param str color code
          */
         void OnColorCodeClick(String str);

@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -52,6 +53,8 @@ public class SimilarBeadFragment extends Fragment {
      */
     private BeadSearcher mSearcher;
 
+    private SimilarBeadListener mCallback;
+
     public void setCode(String code) {
         this.colorCode = code;
     }
@@ -60,6 +63,7 @@ public class SimilarBeadFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.mCallback = (SimilarBeadListener) getActivity();
         Log.i(Config.TAG, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
     }
 
@@ -70,7 +74,6 @@ public class SimilarBeadFragment extends Fragment {
         Log.i(Config.TAG, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         return inflater.inflate(R.layout.fragment_similar_bead, container, false);
     }
-
 
 
     @Override
@@ -84,6 +87,7 @@ public class SimilarBeadFragment extends Fragment {
             Log.i(Config.TAG, marker + "no saved instance is found");
         }
     }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -94,6 +98,15 @@ public class SimilarBeadFragment extends Fragment {
         if (this.colorCode != null) {
             updateView(this.colorCode);
         }
+        this.mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                TextView tv = (TextView) view.findViewById(R.id.bead_similar_color_code);
+                if (tv != null) {
+                    mCallback.OnSimilarColorCodeClick(tv.getText().toString());
+                }
+            }
+        });
     }
 
     @Override
@@ -146,6 +159,13 @@ public class SimilarBeadFragment extends Fragment {
      */
     public interface SimilarBeadListener {
         void initialize(String str);
+
+        /**
+         * action to be executed when a color with given code is clicked
+         *
+         * @param str color code
+         */
+        void OnSimilarColorCodeClick(String str);
     }
 
 
