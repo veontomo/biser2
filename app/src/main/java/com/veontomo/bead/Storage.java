@@ -12,8 +12,7 @@ import android.util.Log;
 import com.veontomo.bead.api.Bead;
 import com.veontomo.bead.api.Location;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -98,40 +97,34 @@ public class Storage extends SQLiteOpenHelper {
 
 
     /**
-     * Returns a list of Bead instance corresponding to given color codes.
+     * Returns a map which keys are bead color codes and values are corresponding locations.
      *
      * @param codes color code
+     * @return string-Location map
      */
-    public List<Bead> beadByColors(String[] codes) {
+    public HashMap<String, Location> locationByColors(String[] codes) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Location loc;
         String wing, code;
         int row, col;
-        List<Bead> beads = new ArrayList<>();
+        HashMap<String, Location> beads = new HashMap<>();
         String[] whereArray = new String[codes.length];
-        for (int i = 0; i < codes.length; i++){
+        for (int i = 0; i < codes.length; i++) {
             whereArray[i] = LocationTable.COLOR_CODE_NAME + " = " + codes[i];
         }
-//        Arrays.fill(whereArray, LocationTable.COLOR_CODE_NAME + " = ?");
-//        String stmt = "SELECT * FROM " + LocationTable.TABLE_NAME + " WHERE " + TextUtils.join(" OR ", whereArray);
-//        Cursor cursor = db.rawQuery(stmt, codes);
-        String stmt = "SELECT * FROM " + LocationTable.TABLE_NAME + " WHERE " +TextUtils.join(" OR ", whereArray) + ";";
+        String stmt = "SELECT * FROM " + LocationTable.TABLE_NAME + " WHERE " + TextUtils.join(" OR ", whereArray) + ";";
         Cursor cursor = db.rawQuery(stmt, null);
         Log.i(Config.TAG, "cursor contains " + cursor.getCount() + ", where: " + stmt);
         int wing_index = cursor.getColumnIndex(LocationTable.WING_NAME),
                 code_index = cursor.getColumnIndex(LocationTable.COLOR_CODE_NAME),
                 row_index = cursor.getColumnIndex(LocationTable.ROW_NAME),
                 col_index = cursor.getColumnIndex(LocationTable.COL_NAME);
-        // TODO: make in such a way that the result contains as well those beads that are not present in DB (with null location)
         while (cursor.moveToNext()) {
             code = cursor.getString(code_index);
             wing = cursor.getString(wing_index);
             row = cursor.getInt(row_index);
             col = cursor.getInt(col_index);
-            loc = new Location(wing, row, col);
-            beads.add(new Bead(code, loc));
+            beads.put(code, new Location(wing, row, col));
         }
-
         cursor.close();
         db.close();
         return beads;

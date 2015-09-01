@@ -15,11 +15,11 @@ import java.util.List;
 
 /**
  * Adapter to display information about beads
- *
  */
 public final class BeadAdapter extends BaseAdapter {
     private static final int LAYOUT_BEAD_PRESENT = R.layout.row_bead_present;
     private static final int LAYOUT_BEAD_ABSENT = R.layout.row_bead_absent;
+    public static final String SEPARATOR = ",";
     private final Context mContext;
     /**
      * Array of beads to display
@@ -41,7 +41,7 @@ public final class BeadAdapter extends BaseAdapter {
      */
     private final short TYPE_ABSENT = 1;
 
-    public BeadAdapter(Context context, ArrayList<Bead> items){
+    public BeadAdapter(Context context, ArrayList<Bead> items) {
         this.mContext = context;
         this.mItems = items;
     }
@@ -119,6 +119,7 @@ public final class BeadAdapter extends BaseAdapter {
 
     /**
      * Set up views stored in given tag using information stored in the Bead instance
+     *
      * @param tag
      * @param bead
      */
@@ -129,6 +130,7 @@ public final class BeadAdapter extends BaseAdapter {
 
     /**
      * Set up views stored in given tag using information stored in the Bead instance
+     *
      * @param tag
      * @param bead
      */
@@ -146,21 +148,47 @@ public final class BeadAdapter extends BaseAdapter {
     }
 
     /**
-     * Returns color codes stored in {@link #mItems adapter items}.
+     * Returns string version of content stored in {@link #mItems adapter items}.
+     *
      * @return
      */
-    public ArrayList<String> colorCodes() {
-        ArrayList<String> result = new ArrayList<>();
-        for (Bead item: this.mItems){
-            result.add(item.colorCode);
+    public String stringify() {
+        String result = "";
+        Location loc;
+        String locStr;
+        for (Bead item : this.mItems) {
+            loc = item.loc;
+            locStr = (loc == null) ? "" : loc.toString();
+            result += item.colorCode + SEPARATOR + locStr + SEPARATOR;
         }
         return result;
+    }
+
+    /**
+     * Initialize {@link #mItems adapter items} based on given string.
+     * <p>This is an operation inverse to {@link #stringify()} method.</p>
+     *
+     * @param str string produced by {@link #stringify()}
+     * @return
+     */
+    public void inflate(String str) {
+        String[] blocks = str.split(SEPARATOR);
+        // a single bead is described by two elements corresponding to color code and location
+        int numOfBeads = (int) (blocks.length / 2),
+                i;
+        this.mItems.clear();
+        String code;
+        Location loc;
+        for (i = 0; i < numOfBeads; i++) {
+            code = blocks[2 * i];
+            loc = Location.fromString(blocks[2 * i + 1]);
+            this.mItems.add(new Bead(code, loc));
+        }
     }
 
     static class HolderBeadPresent {
         public TextView text;
         public TextView location;
-
     }
 
     static class HolderBeadAbsent {

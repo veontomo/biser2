@@ -6,7 +6,10 @@ import com.veontomo.bead.Fragments.SearchAndHistoryFragment;
 import com.veontomo.bead.Storage;
 import com.veontomo.bead.api.Bead;
 import com.veontomo.bead.api.BeadAdapter;
+import com.veontomo.bead.api.Location;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -34,7 +37,15 @@ public class BeadFinderTask extends AsyncTask<String, Void, Void> {
     }
     @Override
     protected Void doInBackground(String... params) {
-        this.searchResult = this.storage.beadByColors(params);
+        HashMap<String, Location> locations = this.storage.locationByColors(params);
+        this.searchResult = new ArrayList<>();
+        for (String code : params){
+            if (locations.containsKey(code)){
+                this.searchResult.add(new Bead(code, locations.get(code)));
+            } else {
+                this.searchResult.add(new Bead(code, null));
+            }
+        }
         return null;
     }
 

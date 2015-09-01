@@ -2,7 +2,6 @@ package com.veontomo.bead.Fragments;
 
 import android.app.Fragment;
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -48,7 +47,10 @@ public class SearchAndHistoryFragment extends Fragment {
     private ListView mListView;
     private OnBeadSearchListener mCallback;
     private BeadAdapter mAdapter;
-    private ArrayList<String> searchTerms;
+    /**
+     * String version of all search terms along with corresponding search results.
+     */
+    private String searchTerms;
 
     public SearchAndHistoryFragment() {
         // Required empty public constructor
@@ -66,8 +68,8 @@ public class SearchAndHistoryFragment extends Fragment {
         Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         this.mCallback = (OnBeadSearchListener) getActivity();
         if (savedInstanceState != null) {
-            searchTerms = savedInstanceState.getStringArrayList(SEARCH_TERMS_KEY);
-            Log.i(Config.TAG, this.marker + " found " + searchTerms.size() + " elements in bundle");
+            searchTerms = savedInstanceState.getString(SEARCH_TERMS_KEY);
+            Log.i(Config.TAG, this.marker + " found " + searchTerms + " in bundle");
         }
         BeadLoaderTask loader = new BeadLoaderTask(getActivity().getApplicationContext());
         loader.execute("locations.txt");
@@ -116,12 +118,8 @@ public class SearchAndHistoryFragment extends Fragment {
             }
         });
 
-        List<Bead> beads = new ArrayList<>();
         if (this.searchTerms != null) {
-            for (String code : searchTerms) {
-                beads.add(new Bead(code, null));
-            }
-            mAdapter.prependItems(beads);
+            mAdapter.inflate(searchTerms);
             mAdapter.notifyDataSetChanged();
         }
     }
@@ -153,8 +151,8 @@ public class SearchAndHistoryFragment extends Fragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         Log.i(Config.TAG, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
-        Log.i(Config.TAG, marker + " saving " + mAdapter.colorCodes().size() + "search terms");
-        outState.putStringArrayList(SEARCH_TERMS_KEY, mAdapter.colorCodes());
+        Log.i(Config.TAG, marker + " saving " + mAdapter.stringify());
+        outState.putString(SEARCH_TERMS_KEY, mAdapter.stringify());
     }
 
     @Override
