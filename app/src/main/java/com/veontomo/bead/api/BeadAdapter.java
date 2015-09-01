@@ -186,6 +186,46 @@ public final class BeadAdapter extends BaseAdapter {
         }
     }
 
+    /**
+     * Returns the index of a Bead instance in {@link #mItems} that has given color code. If no
+     * bead with given color code is found, -1 is returned.
+     *
+     * @param code color code
+     * @return index of the bead or -1 if not found
+     */
+    public int getPositionByColorCode(String code) {
+        int size = this.mItems.size(),
+                i;
+        for (i = 0; i < size; i++) {
+            if (code.equals(this.mItems.get(i).colorCode)) {
+                return i;
+            }
+        }
+        return -1;
+
+    }
+
+    /**
+     * Removes item with given index from {@link #mItems}.
+     *
+     * @param index item numbber to remove
+     * @return removed item
+     */
+    public Bead removeItem(int index) {
+        return this.mItems.remove(index);
+    }
+
+    /**
+     * Prepends a Bead instance to  {@link #mItems}.
+     *
+     * @param bead
+     */
+    public void prependItem(Bead bead) {
+        this.mItems.add(0, bead);
+
+    }
+
+
     static class HolderBeadPresent {
         public TextView text;
         public TextView location;

@@ -92,18 +92,20 @@ public class BeadSearchActivity extends Activity implements SearchAndHistoryFrag
 
     @Override
     public void onColorCodeReceived(String str) {
-        if (getResources().getBoolean(R.bool.dual_pane)) {
-            this.mSimilarFragment.updateView(str);
-        }
+//        if (getResources().getBoolean(R.bool.dual_pane)) {
+//            this.mSimilarFragment.updateView(str);
+//        }
     }
 
     @Override
     public void onColorCodeAbsent(String str) {
-//        if (!getResources().getBoolean(R.bool.dual_pane)) {
-//            Intent intent = new Intent(getApplicationContext(), SimilarBeadActivity.class);
-//            intent.putExtra("color", str);
-//            startActivity(intent);
-//        }
+        if (getResources().getBoolean(R.bool.dual_pane)) {
+            this.mSimilarFragment.updateView(str);
+        } else {
+            Intent intent = new Intent(getApplicationContext(), SimilarBeadActivity.class);
+            intent.putExtra("color", str);
+            startActivity(intent);
+        }
     }
 
 

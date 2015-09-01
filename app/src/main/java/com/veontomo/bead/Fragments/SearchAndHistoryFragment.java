@@ -21,7 +21,6 @@ import com.veontomo.bead.api.Bead;
 import com.veontomo.bead.api.BeadAdapter;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -112,8 +111,15 @@ public class SearchAndHistoryFragment extends Fragment {
                     Log.i(Config.TAG, "Activity that hosts the fragment does not implement interface SearchAndHistoryFragment.OnBeadSearchListener. Therefore, no data exchange is possible.");
                 }
                 if (!searchTerm.isEmpty()) {
-                    BeadFinderTask worker = new BeadFinderTask(new Storage(getActivity().getApplicationContext()), mAdapter, mCallback);
-                    worker.execute(searchTerm);
+                    int index = mAdapter.getPositionByColorCode(searchTerm);
+                    if (index != -1) {
+                        Bead bead = mAdapter.removeItem(index);
+                        mAdapter.prependItem(bead);
+                        mAdapter.notifyDataSetChanged();
+                    } else {
+                        BeadFinderTask worker = new BeadFinderTask(new Storage(getActivity().getApplicationContext()), mAdapter, mCallback);
+                        worker.execute(searchTerm);
+                    }
                 }
             }
         });

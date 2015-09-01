@@ -20,7 +20,7 @@ public class BeadFinderTask extends AsyncTask<String, Void, Void> {
     /**
      * adapter that should take care of result of the search
      */
-    private final BeadAdapter mCallback;
+    private final BeadAdapter mAdapter;
     private final SearchAndHistoryFragment.OnBeadSearchListener handler;
 
     private List<Bead> searchResult;
@@ -32,9 +32,10 @@ public class BeadFinderTask extends AsyncTask<String, Void, Void> {
      */
     public BeadFinderTask(Storage storage, BeadAdapter adapter, SearchAndHistoryFragment.OnBeadSearchListener handler){
         this.storage = storage;
-        this.mCallback = adapter;
+        this.mAdapter = adapter;
         this.handler = handler;
     }
+
     @Override
     protected Void doInBackground(String... params) {
         HashMap<String, Location> locations = this.storage.locationByColors(params);
@@ -54,6 +55,6 @@ public class BeadFinderTask extends AsyncTask<String, Void, Void> {
         if (this.searchResult.size() == 1 && this.searchResult.get(0).loc == null){
             this.handler.onColorCodeAbsent(this.searchResult.get(0).colorCode);
         }
-        mCallback.prependItems(this.searchResult);
+        mAdapter.prependItems(this.searchResult);
     }
 }
