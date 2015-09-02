@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Пошук бісера</string>
+    <string name="colorCode">колір</string>
+    <string name="find_bead">Знайти</string>
+    <string name="location">координати</string>
+    <string name="title_activity_bead_search">Пошук</string>
+    <string name="title_activity_similar_bead">Схожий бісер</string>
+    <string name="action_settings">Налаштування</string>
+</resources>

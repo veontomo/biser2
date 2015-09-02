@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">Bead Search</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_bead_search">Bead Search</string>
 
@@ -9,5 +8,6 @@
     <string name="location">position</string>
 
     // below are names of tokens used to pass values from one activity to another
-    <string name="EXTRA_SEARCH_INITIAL">search_init</string>
+    <string name="EXTRA_SEARCH_INITIAL" translatable="false">search_init</string>
+    <string name="app_name">Bead Search</string>
 </resources>
