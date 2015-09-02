@@ -1,7 +1,6 @@
 package com.veontomo.bead.api;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +8,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.veontomo.bead.Config;
 import com.veontomo.bead.R;
 
 import java.util.ArrayList;
@@ -21,7 +19,7 @@ import java.util.List;
 public final class BeadAdapter extends BaseAdapter {
     private static final int LAYOUT_BEAD_PRESENT = R.layout.row_bead_present;
     private static final int LAYOUT_BEAD_ABSENT = R.layout.row_bead_absent;
-    public static final String SEPARATOR = ",";
+    private static final String SEPARATOR = ",";
     private final Context mContext;
     /**
      * Array of beads to display
@@ -176,7 +174,7 @@ public final class BeadAdapter extends BaseAdapter {
     public void inflate(String str) {
         final String[] blocks = str.split(SEPARATOR, -1);
         // a single bead is described by two elements corresponding to color code and location
-        int numOfBeads = (int) (blocks.length / 2),
+        int numOfBeads = blocks.length / 2,
                 i;
         this.mItems.clear();
         for (i = 0; i < numOfBeads; i++) {

@@ -232,7 +232,7 @@ public class SearchAndHistoryFragment extends Fragment {
 
 
     /**
-     * Interface to be implemented if one wants that the fragment is able to comunicate with
+     * Interface to be implemented if one wants that the fragment is able to communicate with
      * its hosting activity.
      */
     public interface OnBeadSearchListener {

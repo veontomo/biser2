@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.veontomo.bead.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -55,9 +56,13 @@ public class SimilarBeadAdapter extends BaseAdapter {
 
     }
 
-    public void setItems(List<String> list) {
+    public void setItems(final String[] items) {
         this.mItems.clear();
-        this.mItems.addAll(list);
+        final int size = items.length;
+        int i;
+        for (i = 0; i < size; i++) {
+            this.mItems.add(items[i]);
+        }
         notifyDataSetChanged();
     }
 

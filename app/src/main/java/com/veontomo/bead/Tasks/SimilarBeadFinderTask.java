@@ -7,17 +7,15 @@ import com.veontomo.bead.Config;
 import com.veontomo.bead.Storage;
 import com.veontomo.bead.api.BeadSearcher;
 import com.veontomo.bead.api.SimilarBeadAdapter;
-import com.veontomo.bead.bktree.Distance;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
 /**
  * Performs search of similar beads
  */
-public class SimilarBeadFinderTask extends AsyncTask<String, Void, LinkedList<String>> {
+public class SimilarBeadFinderTask extends AsyncTask<String, Void, String[]> {
     private final SimilarBeadAdapter mAdapter;
     private final Storage storage;
     private final BeadSearcher searcher;
@@ -31,9 +29,9 @@ public class SimilarBeadFinderTask extends AsyncTask<String, Void, LinkedList<St
     }
 
     @Override
-    protected LinkedList<String> doInBackground(String... params) {
-        LinkedList<String> result = null;
-        Set<String> result2 = null;
+    protected String[] doInBackground(String... params) {
+        Set<String> dist1;
+        Set<String> dist2;
         if (params.length == 0) {
             return null;
         }
@@ -42,19 +40,26 @@ public class SimilarBeadFinderTask extends AsyncTask<String, Void, LinkedList<St
         if (searcher.getTree() == null) {
             searcher.buildTree(storage.getColorCodes());
         }
-        result = new LinkedList(searcher.getTree().searchAt(seed, 1d));
-        result2 = searcher.getTree().searchAt(seed, 2d);
-        result.addAll(result2);
+        dist1 = searcher.getTree().searchAt(seed, 1d);
+        dist2 = searcher.getTree().searchAt(seed, 2d);
+        int i = 0;
+        String[] result = new String[dist1.size() + dist2.size()];
+        for (String str : dist1) {
+            result[i] = str;
+            i++;
+        }
+        for (String str : dist2) {
+            result[i] = str;
+            i++;
+        }
         return result;
 
     }
 
 
     @Override
-    protected void onPostExecute(LinkedList<String> items) {
-        List<String> list = new ArrayList<>();
-        list.addAll(items);
-        mAdapter.setItems(list);
+    protected void onPostExecute(final String[] items) {
+        mAdapter.setItems(items);
     }
 
 

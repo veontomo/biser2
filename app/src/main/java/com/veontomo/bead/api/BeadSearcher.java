@@ -22,7 +22,7 @@ public class BeadSearcher {
     /**
      * distance function
      */
-    public final Distance<String> distance;
+    private final Distance<String> distance;
 
     public BeadSearcher(final Storage storage) {
         this.storage = storage;
