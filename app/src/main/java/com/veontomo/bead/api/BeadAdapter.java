@@ -174,15 +174,13 @@ public final class BeadAdapter extends BaseAdapter {
      * @return
      */
     public void inflate(String str) {
-        String[] blocks = str.split(SEPARATOR, -1);
+        final String[] blocks = str.split(SEPARATOR, -1);
         // a single bead is described by two elements corresponding to color code and location
         int numOfBeads = (int) (blocks.length / 2),
                 i;
         this.mItems.clear();
-        String code;
         for (i = 0; i < numOfBeads; i++) {
-            code = blocks[2 * i];
-            this.mItems.add(new Bead(code, Location.fromString(blocks[2 * i + 1])));
+            this.mItems.add(new Bead(blocks[2 * i], Location.fromString(blocks[2 * i + 1])));
         }
     }
 

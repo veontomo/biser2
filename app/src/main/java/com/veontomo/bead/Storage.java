@@ -109,7 +109,7 @@ public class Storage extends SQLiteOpenHelper {
         HashMap<String, Location> beads = new HashMap<>();
         String[] whereArray = new String[codes.length];
         for (int i = 0; i < codes.length; i++) {
-            whereArray[i] = LocationTable.COLOR_CODE_NAME + " = " + codes[i];
+            whereArray[i] = LocationTable.COLOR_CODE_NAME + " = \"" + codes[i] + "\"";
         }
         String stmt = "SELECT * FROM " + LocationTable.TABLE_NAME + " WHERE " + TextUtils.join(" OR ", whereArray) + ";";
         Cursor cursor = db.rawQuery(stmt, null);

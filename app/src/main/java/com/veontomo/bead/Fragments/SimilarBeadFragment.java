@@ -103,7 +103,7 @@ public class SimilarBeadFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 TextView tv = (TextView) view.findViewById(R.id.bead_similar_color_code);
                 if (tv != null) {
-                    mCallback.OnSimilarColorCodeClick(tv.getText().toString());
+                    mCallback.onSimilarColorCodeClick(tv.getText().toString());
                 }
             }
         });
@@ -165,7 +165,7 @@ public class SimilarBeadFragment extends Fragment {
          *
          * @param str color code
          */
-        void OnSimilarColorCodeClick(String str);
+        void onSimilarColorCodeClick(String str);
     }
 
 

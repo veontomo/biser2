@@ -25,15 +25,29 @@ public class BeadSearchActivity extends Activity implements SearchAndHistoryFrag
      */
     private SearchAndHistoryFragment mSearchFragment;
 
+    /**
+     * a token to identify result from a start-for-result action
+     */
+    private static final int SIMILAR_BEAD_REQUEST = 4;
+
+    /**
+     * a string received from a start-for-result action
+     */
+    private String onResult;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bead_search);
+        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
     }
 
     @Override
     public void onStart() {
         super.onStart();
+        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        this.mSimilarFragment = (SimilarBeadFragment) getFragmentManager().findFragmentById(R.id.similar);
+        this.mSearchFragment = (SearchAndHistoryFragment) getFragmentManager().findFragmentById(R.id.search);
     }
 
     @Override
@@ -44,15 +58,15 @@ public class BeadSearchActivity extends Activity implements SearchAndHistoryFrag
     @Override
     public void onResume() {
         super.onResume();
-        this.mSimilarFragment = (SimilarBeadFragment) getFragmentManager().findFragmentById(R.id.similar);
-        this.mSearchFragment = (SearchAndHistoryFragment) getFragmentManager().findFragmentById(R.id.search);
+        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        if (this.onResult != null) {
+            this.mSearchFragment.insert(this.onResult);
+        }
     }
 
     @Override
     public void onPause() {
         Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
-        this.mSearchFragment = null;
-        this.mSimilarFragment = null;
         super.onPause();
     }
 
@@ -65,6 +79,8 @@ public class BeadSearchActivity extends Activity implements SearchAndHistoryFrag
     @Override
     public void onStop() {
         Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        this.mSearchFragment = null;
+        this.mSimilarFragment = null;
         super.onStop();
     }
 
@@ -98,6 +114,16 @@ public class BeadSearchActivity extends Activity implements SearchAndHistoryFrag
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK && requestCode == SIMILAR_BEAD_REQUEST) {
+            String code = data.getStringExtra(getString(R.string.EXTRA_SEARCH_INITIAL));
+            if (code != null) {
+                this.onResult = code;
+            }
+        }
+    }
+
+    @Override
     public void onColorCodeReceived(String str) {
 //        if (getResources().getBoolean(R.bool.dual_pane)) {
 //            this.mSimilarFragment.updateView(str);
@@ -110,13 +136,13 @@ public class BeadSearchActivity extends Activity implements SearchAndHistoryFrag
             this.mSimilarFragment.updateView(str);
         } else {
             Intent intent = new Intent(getApplicationContext(), SimilarBeadActivity.class);
-            intent.putExtra("color", str);
-            startActivity(intent);
+            intent.putExtra(SimilarBeadActivity.COLOR_CODE_KEY, str);
+            startActivityForResult(intent, SIMILAR_BEAD_REQUEST);
         }
     }
 
     @Override
-    public void OnColorCodeClick(String str) {
+    public void onColorCodeClick(String str) {
         if (getResources().getBoolean(R.bool.dual_pane)) {
             this.mSimilarFragment.updateView(str);
         }
@@ -129,7 +155,7 @@ public class BeadSearchActivity extends Activity implements SearchAndHistoryFrag
     }
 
     @Override
-    public void OnSimilarColorCodeClick(String str) {
+    public void onSimilarColorCodeClick(String str) {
         if (getResources().getBoolean(R.bool.dual_pane)) {
             this.mSearchFragment.insert(str);
         }

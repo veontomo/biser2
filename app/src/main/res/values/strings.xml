@@ -7,4 +7,7 @@
     <string name="colorCode">color</string>
     <string name="title_activity_similar_bead">Similar Beads</string>
     <string name="location">position</string>
+
+    // below are names of tokens used to pass values from one activity to another
+    <string name="EXTRA_SEARCH_INITIAL">search_init</string>
 </resources>

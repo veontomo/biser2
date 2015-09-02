@@ -18,6 +18,12 @@ public class SimilarBeadActivity extends Activity implements SimilarBeadFragment
      */
     private static final String FRAGMENT_KEY = "fragmentKey";
 
+    /**
+     * a token under which an intent passed to this activity stores a color code that is used as an
+     * initial parameter
+     */
+    public static final String COLOR_CODE_KEY = "color";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +35,7 @@ public class SimilarBeadActivity extends Activity implements SimilarBeadFragment
         }
         Intent intent = getIntent();
         if (intent != null) {
-            String code = intent.getStringExtra("color");
+            String code = intent.getStringExtra(COLOR_CODE_KEY);
             if (code != null) {
                 initialize(code);
             }
@@ -97,7 +103,10 @@ public class SimilarBeadActivity extends Activity implements SimilarBeadFragment
     }
 
     @Override
-    public void OnSimilarColorCodeClick(String str) {
-        // TODO
+    public void onSimilarColorCodeClick(String str) {
+        Intent intent = new Intent();
+        intent.putExtra(getString(R.string.EXTRA_SEARCH_INITIAL), str);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 }

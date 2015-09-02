@@ -69,7 +69,6 @@ public class SearchAndHistoryFragment extends Fragment {
         this.mCallback = (OnBeadSearchListener) getActivity();
         if (savedInstanceState != null) {
             searchTerms = savedInstanceState.getString(SEARCH_TERMS_KEY);
-            Log.i(Config.TAG, this.marker + " found " + searchTerms + " in bundle");
         }
         BeadLoaderTask loader = new BeadLoaderTask(getActivity().getApplicationContext());
         loader.execute("locations.txt");
@@ -111,7 +110,7 @@ public class SearchAndHistoryFragment extends Fragment {
                     tv = (TextView) view.findViewById(R.id.bead_absent_color_code);
                 }
                 if (tv != null) {
-                    mCallback.OnColorCodeClick(tv.getText().toString());
+                    mCallback.onColorCodeClick(tv.getText().toString());
                 }
             }
         });
@@ -256,7 +255,7 @@ public class SearchAndHistoryFragment extends Fragment {
          *
          * @param str color code
          */
-        void OnColorCodeClick(String str);
+        void onColorCodeClick(String str);
     }
 
 }
