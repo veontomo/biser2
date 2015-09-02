@@ -23,7 +23,7 @@ import java.util.ArrayList;
  *
  */
 public class SimilarBeadFragment extends Fragment {
-    private final String marker = "similar bead fragment " + System.currentTimeMillis() + ": ";
+    private final String marker = "similar bead fragment: ";
 
     /**
      * color codes similar to this one are supposed to be displayed by the fragment

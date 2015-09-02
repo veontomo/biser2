@@ -13,7 +13,7 @@ import com.veontomo.bead.Fragments.SimilarBeadFragment;
 
 public class BeadSearchActivity extends Activity implements SearchAndHistoryFragment.OnBeadSearchListener, SimilarBeadFragment.SimilarBeadListener {
 
-    private final String marker = "activity: ";
+    private final String marker = "bead search activity: ";
 
     /**
      * fragment that displays similar bead colors

@@ -1,6 +1,7 @@
 package com.veontomo.bead.api;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.veontomo.bead.Config;
 import com.veontomo.bead.R;
 
 import java.util.ArrayList;
@@ -172,17 +174,15 @@ public final class BeadAdapter extends BaseAdapter {
      * @return
      */
     public void inflate(String str) {
-        String[] blocks = str.split(SEPARATOR);
+        String[] blocks = str.split(SEPARATOR, -1);
         // a single bead is described by two elements corresponding to color code and location
         int numOfBeads = (int) (blocks.length / 2),
                 i;
         this.mItems.clear();
         String code;
-        Location loc;
         for (i = 0; i < numOfBeads; i++) {
             code = blocks[2 * i];
-            loc = Location.fromString(blocks[2 * i + 1]);
-            this.mItems.add(new Bead(code, loc));
+            this.mItems.add(new Bead(code, Location.fromString(blocks[2 * i + 1])));
         }
     }
 

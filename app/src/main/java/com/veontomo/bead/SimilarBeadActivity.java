@@ -47,10 +47,25 @@ public class SimilarBeadActivity extends Activity implements SimilarBeadFragment
         super.onSaveInstanceState(outState);
         Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         getFragmentManager().putFragment(outState, FRAGMENT_KEY, mFragment);
-
-
     }
 
+    @Override
+    public void onPause() {
+        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        super.onPause();
+    }
+
+    @Override
+    public void onStop() {
+        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        super.onStop();
+    }
+
+    @Override
+    public void onDestroy() {
+        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        super.onDestroy();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

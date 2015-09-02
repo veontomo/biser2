@@ -123,8 +123,6 @@ public class SearchAndHistoryFragment extends Fragment {
                 mEditText.setText("");
                 if (mCallback != null) {
                     mCallback.onColorCodeReceived(searchTerm);
-                } else {
-                    Log.i(Config.TAG, "Activity that hosts the fragment does not implement interface SearchAndHistoryFragment.OnBeadSearchListener. Therefore, no data exchange is possible.");
                 }
                 if (!searchTerm.isEmpty()) {
                     updateSearchResult(searchTerm);
@@ -133,8 +131,11 @@ public class SearchAndHistoryFragment extends Fragment {
         });
 
         if (this.searchTerms != null) {
+            Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName() + " INFLATING");
             mAdapter.inflate(searchTerms);
             mAdapter.notifyDataSetChanged();
+        } else {
+            Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName() + " nothing to INFLATE");
         }
     }
 
@@ -151,7 +152,15 @@ public class SearchAndHistoryFragment extends Fragment {
 
     }
 
+    /**
+     * Sets up the header of the list view
+     */
     private void setUpHeaderView() {
+        // without this control, the header gets added every time
+        // the fragment gets restarted
+        if (mListView.getHeaderViewsCount() > 0){
+            return;
+        }
         View view = View.inflate(getActivity().getApplicationContext(), R.layout.row_bead_present, null);
         view.setBackgroundColor(793229873);
         TextView colorTV = (TextView) view.findViewById(R.id.bead_present_color_code);
@@ -177,9 +186,10 @@ public class SearchAndHistoryFragment extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+        this.searchTerms = mAdapter.stringify();
         Log.i(Config.TAG, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
-        Log.i(Config.TAG, marker + " saving " + mAdapter.stringify());
-        outState.putString(SEARCH_TERMS_KEY, mAdapter.stringify());
+        Log.i(Config.TAG, marker + " saving " + this.searchTerms);
+        outState.putString(SEARCH_TERMS_KEY, this.searchTerms);
     }
 
     @Override
