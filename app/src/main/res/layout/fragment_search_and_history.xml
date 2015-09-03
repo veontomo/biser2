@@ -40,7 +40,7 @@
         android:layout_width="320dp"
         android:layout_height="wrap_content"
         ads:adSize="BANNER"
-        ads:adUnitId="@string/banner_ad_unit_id_REAL">
+        ads:adUnitId="@string/banner_ad_unit_id_TEST">
     </com.google.android.gms.ads.AdView>
 
 </LinearLayout>
