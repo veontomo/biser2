@@ -1,15 +1,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.veontomo.bead.BeadSearchActivity">
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              tools:context="com.veontomo.bead.BeadSearchActivity">
 
     <ListView
         android:id="@+id/searchHistory"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:ems="8"
             android:hint="@string/colorCode"
-            android:inputType="number" />
+            android:inputType="number"/>
 
         <ImageButton
             android:id="@+id/button"
@@ -30,6 +30,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:contentDescription="@string/find_bead"
-            android:src="@mipmap/ic_search_black_24dp" />
+            android:src="@mipmap/ic_search_black_24dp"/>
     </LinearLayout>
 </LinearLayout>
