@@ -32,7 +32,6 @@ public class SimilarBeadFragment extends Fragment {
     /**
      * name of the key under which {@link #colorCode initialization parameter} gets saved in the bundle
      */
-
     private static final String COLOR_CODE_KEY = "inputCode";
     /**
      * list view that contains information about similar beads
@@ -136,7 +135,8 @@ public class SimilarBeadFragment extends Fragment {
      */
     public void updateView(String str) {
         Log.i(Config.TAG, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
-        ((TextView) getView().findViewById(R.id.color_code)).setText(str);
+        String text = getResources().getString(R.string.colors_similar_to).replaceFirst("#", str);;
+        ((TextView) getView().findViewById(R.id.color_code)).setText(text);
         findSimilar(str);
 
     }

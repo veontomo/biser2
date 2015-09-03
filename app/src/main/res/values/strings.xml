@@ -4,10 +4,10 @@
 
     <string name="find_bead">Find</string>
     <string name="colorCode">color</string>
-    <string name="title_activity_similar_bead">Similar Beads</string>
-    <string name="location">position</string>
+    <string name="title_activity_similar_bead">Similar color</string>
 
     // below are names of tokens used to pass values from one activity to another
     <string name="EXTRA_SEARCH_INITIAL" translatable="false">search_init</string>
     <string name="app_name">Bead Search</string>
+    <string name="colors_similar_to">Colors similar to #:</string>
 </resources>

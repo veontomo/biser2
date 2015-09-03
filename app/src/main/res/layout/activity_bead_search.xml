@@ -2,18 +2,17 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:orientation="vertical"
+              android:layout_marginBottom="0dp"
               android:layout_marginLeft="@dimen/spaceTiny"
               android:layout_marginRight="@dimen/spaceTiny"
               android:layout_marginTop="@dimen/spaceTiny"
-              android:layout_marginBottom="0dp"
-              android:background="@drawable/bead_search_single_pane_bg"
+              android:orientation="vertical"
               tools:context="com.veontomo.bead.BeadSearchActivity">
 
     <fragment
         android:id="@+id/search"
         class="com.veontomo.bead.Fragments.SearchAndHistoryFragment"
         android:layout_width="match_parent"
-        android:layout_margin="5dp"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/spaceSmaller"/>
 </LinearLayout>

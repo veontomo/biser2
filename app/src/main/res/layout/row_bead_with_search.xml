@@ -9,9 +9,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawableEnd="@mipmap/ic_search_black_24dp"
-        android:layout_margin="10dp"
-        tools:text="98765"
-        tools:textSize="20sp"
-        android:textColor="#be008700"/>
+        android:layout_marginBottom="@dimen/spaceSmall"
+        android:layout_marginTop="@dimen/spaceMedium"
+        android:textColor="@color/secondary2"
+        android:textSize="@dimen/textSmall"
+        />
 
 </LinearLayout>

@@ -3,8 +3,8 @@
     <string name="app_name">Поиск бисера</string>
     <string name="colorCode">цвет</string>
     <string name="find_bead">Найти</string>
-    <string name="location">координаты</string>
-    <string name="title_activity_bead_search">Поиск</string>
-    <string name="title_activity_similar_bead">Похожий бисер</string>
+    <string name="title_activity_bead_search">Поиск бисера</string>
+    <string name="title_activity_similar_bead">Похожий цвет</string>
     <string name="action_settings">Настройки</string>
+    <string name="colors_similar_to">Цвета похожие на #:</string>
 </resources>
