@@ -2,7 +2,6 @@ package com.veontomo.bead.Fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,14 +62,14 @@ public class SimilarBeadFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.mCallback = (SimilarBeadListener) getActivity();
-        Log.i(Config.TAG, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        // Log.i(Config.TAG, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.i(Config.TAG, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        // Log.i(Config.TAG, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         return inflater.inflate(R.layout.fragment_similar_bead, container, false);
     }
 
@@ -78,19 +77,19 @@ public class SimilarBeadFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Log.i(Config.TAG, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        // Log.i(Config.TAG, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         if (savedInstanceState != null) {
-            Log.i(Config.TAG, marker + " saved instance is found");
+            // Log.i(Config.TAG, marker + " saved instance is found");
             this.colorCode = savedInstanceState.getString(COLOR_CODE_KEY);
         } else {
-            Log.i(Config.TAG, marker + "no saved instance is found");
+            // Log.i(Config.TAG, marker + "no saved instance is found");
         }
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        Log.i(Config.TAG, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        // Log.i(Config.TAG, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         this.mListView = (ListView) getView().findViewById(R.id.list_similar);
         this.mAdapter = new SimilarBeadAdapter(getActivity().getApplicationContext(), new ArrayList<String>());
         this.mListView.setAdapter(this.mAdapter);
@@ -111,12 +110,12 @@ public class SimilarBeadFragment extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        Log.i(Config.TAG, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        // Log.i(Config.TAG, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         if (this.colorCode != null) {
-            Log.i(Config.TAG, marker + " saving code " + this.colorCode);
+            // Log.i(Config.TAG, marker + " saving code " + this.colorCode);
             outState.putString(COLOR_CODE_KEY, this.colorCode);
         } else {
-            Log.i(Config.TAG, marker + " no code to save");
+            // Log.i(Config.TAG, marker + " no code to save");
         }
     }
 
@@ -134,7 +133,7 @@ public class SimilarBeadFragment extends Fragment {
      * @author veontomo@gmail.com
      */
     public void updateView(String str) {
-        Log.i(Config.TAG, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        // Log.i(Config.TAG, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         String text = getResources().getString(R.string.colors_similar_to).replaceFirst("#", str);;
         ((TextView) getView().findViewById(R.id.color_code)).setText(text);
         findSimilar(str);
@@ -142,12 +141,12 @@ public class SimilarBeadFragment extends Fragment {
     }
 
     private void findSimilar(String code) {
-        Log.i(Config.TAG, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        // Log.i(Config.TAG, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         if (this.mSearcher == null) {
-            Log.i(Config.TAG, "create new mSearcher");
+            // Log.i(Config.TAG, "create new mSearcher");
             this.mSearcher = new BeadSearcher(new Storage(getActivity().getApplicationContext()));
         } else {
-            Log.i(Config.TAG, "mSearcher already exists");
+            // Log.i(Config.TAG, "mSearcher already exists");
         }
         this.mSearcher.fillInWithSimilar(code, this.mAdapter);
     }

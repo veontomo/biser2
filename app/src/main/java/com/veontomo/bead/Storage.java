@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 import android.text.TextUtils;
-import android.util.Log;
+// import android.util.Log;
 
 import com.veontomo.bead.api.Bead;
 import com.veontomo.bead.api.Location;
@@ -113,7 +113,7 @@ public class Storage extends SQLiteOpenHelper {
         }
         String stmt = "SELECT * FROM " + LocationTable.TABLE_NAME + " WHERE " + TextUtils.join(" OR ", whereArray) + ";";
         Cursor cursor = db.rawQuery(stmt, null);
-        Log.i(Config.TAG, "cursor contains " + cursor.getCount() + ", where: " + stmt);
+        // Log.i(Config.TAG, "cursor contains " + cursor.getCount() + ", where: " + stmt);
         int wing_index = cursor.getColumnIndex(LocationTable.WING_NAME),
                 code_index = cursor.getColumnIndex(LocationTable.COLOR_CODE_NAME),
                 row_index = cursor.getColumnIndex(LocationTable.ROW_NAME),

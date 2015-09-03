@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+//import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -39,13 +39,13 @@ public class BeadSearchActivity extends AppCompatActivity implements SearchAndHi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bead_search);
-        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        // Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        // Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         this.mSimilarFragment = (SimilarBeadFragment) getFragmentManager().findFragmentById(R.id.similar);
         this.mSearchFragment = (SearchAndHistoryFragment) getFragmentManager().findFragmentById(R.id.search);
     }
@@ -58,7 +58,7 @@ public class BeadSearchActivity extends AppCompatActivity implements SearchAndHi
     @Override
     public void onResume() {
         super.onResume();
-        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        // Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         if (this.onResult != null) {
             this.mSearchFragment.insert(this.onResult);
         }
@@ -66,19 +66,19 @@ public class BeadSearchActivity extends AppCompatActivity implements SearchAndHi
 
     @Override
     public void onPause() {
-        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        // Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         super.onPause();
     }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle bundle) {
-        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        // Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         super.onSaveInstanceState(bundle);
     }
 
     @Override
     public void onStop() {
-        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        // Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         this.mSearchFragment = null;
         this.mSimilarFragment = null;
         super.onStop();
@@ -86,7 +86,7 @@ public class BeadSearchActivity extends AppCompatActivity implements SearchAndHi
 
     @Override
     public void onDestroy() {
-        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        // Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         super.onDestroy();
     }
 

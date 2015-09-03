@@ -3,7 +3,6 @@ package com.veontomo.bead.Fragments;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,16 +60,14 @@ public class SearchAndHistoryFragment extends Fragment {
         // Required empty public constructor
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
-    }
+//    @Override
+//    public void onAttach(Context context) {
+//        super.onAttach(context);
+//    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         this.mCallback = (OnBeadSearchListener) getActivity();
         if (savedInstanceState != null) {
             searchTerms = savedInstanceState.getString(SEARCH_TERMS_KEY);
@@ -84,20 +81,19 @@ public class SearchAndHistoryFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         return inflater.inflate(R.layout.fragment_search_and_history, container, false);
     }
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
-    }
+//    @Override
+//    public void onActivityCreated(Bundle savedInstanceState) {
+//        super.onActivityCreated(savedInstanceState);
+//        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+//    }
 
     @Override
     public void onStart() {
         super.onStart();
-        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        //Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         this.mButton = (ImageButton) getView().findViewById(R.id.button);
         this.mEditText = (EditText) getView().findViewById(R.id.editText);
         this.mListView = (ListView) getView().findViewById(R.id.searchHistory);
@@ -134,11 +130,11 @@ public class SearchAndHistoryFragment extends Fragment {
         });
 
         if (this.searchTerms != null) {
-            Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName() + " INFLATING");
+//            Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName() + " INFLATING");
             mAdapter.inflate(searchTerms);
             mAdapter.notifyDataSetChanged();
         } else {
-            Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName() + " nothing to INFLATE");
+//            Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName() + " nothing to INFLATE");
         }
 
         /// initialize ad
@@ -165,12 +161,12 @@ public class SearchAndHistoryFragment extends Fragment {
     public void onResume() {
         super.onResume();
         this.mAdView.resume();
-        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        //Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
     }
 
     @Override
     public void onPause() {
-        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        // Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         this.mAdView.pause();
         super.onPause();
     }
@@ -179,14 +175,14 @@ public class SearchAndHistoryFragment extends Fragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         this.searchTerms = mAdapter.stringify();
-        Log.i(Config.TAG, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
-        Log.i(Config.TAG, marker + " saving " + this.searchTerms);
+//        Log.i(Config.TAG, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+//        Log.i(Config.TAG, marker + " saving " + this.searchTerms);
         outState.putString(SEARCH_TERMS_KEY, this.searchTerms);
     }
 
     @Override
     public void onStop() {
-        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+//        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         this.mButton.setOnClickListener(null);
         this.mListView.setAdapter(null);
         this.mAdapter = null;
@@ -198,20 +194,20 @@ public class SearchAndHistoryFragment extends Fragment {
 
     @Override
     public void onDestroyView() {
-        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+//        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         mAdView.destroy();
         super.onDestroyView();
     }
 
     @Override
     public void onDestroy() {
-        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+//        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         super.onDestroy();
     }
 
     @Override
     public void onDetach() {
-        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+//        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         super.onDetach();
     }
 

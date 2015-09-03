@@ -3,7 +3,7 @@ package com.veontomo.bead;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+// import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -28,9 +28,9 @@ public class SimilarBeadActivity extends Activity implements SimilarBeadFragment
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_similar_bead);
-        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        // Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         if (savedInstanceState != null) {
-            Log.i(Config.TAG, this.marker + " restore fragment");
+            // Log.i(Config.TAG, this.marker + " restore fragment");
             mFragment = (SimilarBeadFragment) getFragmentManager().getFragment(savedInstanceState, FRAGMENT_KEY);
         }
         Intent intent = getIntent();
@@ -45,31 +45,31 @@ public class SimilarBeadActivity extends Activity implements SimilarBeadFragment
     @Override
     public void onResume() {
         super.onResume();
-        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        // Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        // Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         getFragmentManager().putFragment(outState, FRAGMENT_KEY, mFragment);
     }
 
     @Override
     public void onPause() {
-        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        // Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         super.onPause();
     }
 
     @Override
     public void onStop() {
-        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        // Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         super.onStop();
     }
 
     @Override
     public void onDestroy() {
-        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        // Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         super.onDestroy();
     }
 
