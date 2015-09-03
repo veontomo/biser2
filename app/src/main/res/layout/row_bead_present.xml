@@ -2,23 +2,30 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:layout_margin="5dp"
+              android:layout_marginLeft="@dimen/spaceSmaller"
+              android:layout_marginRight="@dimen/spaceSmaller"
               android:orientation="horizontal">
 
     <TextView
         android:id="@+id/bead_present_color_code"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#d2ff4100"
-        android:textSize="18sp"/>
+        android:layout_marginBottom="@dimen/spaceSmall"
+        android:layout_marginTop="@dimen/spaceMedium"
+        android:textColor="@color/secondary2"
+        android:textSize="@dimen/textSmall"
+        />
 
     <TextView
         android:id="@+id/bead_present_location"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:padding="9dp"
-        android:textColor="#000000"
+        android:layout_marginBottom="@dimen/spaceSmall"
+        android:layout_marginTop="@dimen/spaceMedium"
+        android:layout_weight="1"
         android:drawableEnd="@mipmap/circles"
-        android:textSize="18sp"/>
+        android:paddingStart="@dimen/spaceSmall"
+        android:textColor="#000000"
+        android:textSize="@dimen/textSmall"/>
 
 </LinearLayout>

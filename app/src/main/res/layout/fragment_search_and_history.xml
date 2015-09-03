@@ -5,11 +5,7 @@
               android:orientation="vertical"
               tools:context="com.veontomo.bead.BeadSearchActivity">
 
-    <ListView
-        android:id="@+id/searchHistory"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,8 +24,13 @@
             android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="@dimen/spaceSmall"
             android:contentDescription="@string/find_bead"
             android:src="@mipmap/ic_search_black_24dp"/>
     </LinearLayout>
+    <ListView
+        android:id="@+id/searchHistory"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
 </LinearLayout>

@@ -3,7 +3,11 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical"
-              android:background="@drawable/search_history_bg"
+              android:layout_marginLeft="@dimen/spaceTiny"
+              android:layout_marginRight="@dimen/spaceTiny"
+              android:layout_marginTop="@dimen/spaceTiny"
+              android:layout_marginBottom="0dp"
+              android:background="@drawable/bead_search_single_pane_bg"
               tools:context="com.veontomo.bead.BeadSearchActivity">
 
     <fragment

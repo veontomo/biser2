@@ -4,7 +4,8 @@
     <stroke
         android:width="@dimen/spaceTiny"
         android:color="@color/primary"/>
-    <corners android:radius="@dimen/spaceSmall"/>
+    <corners android:topLeftRadius="@dimen/spaceSmall"
+             android:topRightRadius="@dimen/spaceSmall" />
     <padding
         android:bottom="@dimen/spaceSmaller"
         android:left="@dimen/spaceTiny"

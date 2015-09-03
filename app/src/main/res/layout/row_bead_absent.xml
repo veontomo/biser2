@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:layout_marginLeft="@dimen/spaceSmaller"
+              android:layout_marginRight="@dimen/spaceSmaller"
+              android:orientation="vertical">
+
     <TextView
-        android:id = "@+id/bead_absent_color_code"
-        android:layout_width="wrap_content"
+        android:id="@+id/bead_absent_color_code"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
+        android:layout_marginBottom="@dimen/spaceSmall"
+        android:layout_marginTop="@dimen/spaceMedium"
         android:drawableEnd="@mipmap/circles"
-        android:textColor="#d2ff4100"/>
+        android:textColor="@color/primary_light"
+        android:textSize="@dimen/textSmall"/>
 
 </LinearLayout>
