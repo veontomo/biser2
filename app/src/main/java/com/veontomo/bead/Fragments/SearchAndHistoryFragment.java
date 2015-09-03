@@ -23,6 +23,9 @@ import com.veontomo.bead.api.BeadAdapter;
 
 import java.util.ArrayList;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -51,6 +54,8 @@ public class SearchAndHistoryFragment extends Fragment {
      * String version of all search terms along with corresponding search results.
      */
     private String searchTerms;
+
+    private AdView mAdView;
 
     public SearchAndHistoryFragment() {
         // Required empty public constructor
@@ -97,7 +102,6 @@ public class SearchAndHistoryFragment extends Fragment {
         this.mEditText = (EditText) getView().findViewById(R.id.editText);
         this.mListView = (ListView) getView().findViewById(R.id.searchHistory);
         this.mAdapter = new BeadAdapter(getActivity().getApplicationContext(), new ArrayList<Bead>());
-        setUpHeaderView();
         this.mListView.setAdapter(this.mAdapter);
         this.mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -136,6 +140,12 @@ public class SearchAndHistoryFragment extends Fragment {
         } else {
             Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName() + " nothing to INFLATE");
         }
+
+        /// initialize ad
+        mAdView = (AdView) getActivity().findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
     }
 
     private void updateSearchResult(String code) {
@@ -151,34 +161,17 @@ public class SearchAndHistoryFragment extends Fragment {
 
     }
 
-    /**
-     * Sets up the header of the list view
-     */
-    private void setUpHeaderView() {
-        // without this control, the header gets added every time
-        // the fragment gets restarted
-        if (mListView.getHeaderViewsCount() > 0){
-            return;
-        }
-        View view = View.inflate(getActivity().getApplicationContext(), R.layout.row_bead_present, null);
-        view.setBackgroundColor(793229873);
-        TextView colorTV = (TextView) view.findViewById(R.id.bead_present_color_code);
-        colorTV.setText(R.string.colorCode);
-        TextView locationTV = (TextView) view.findViewById(R.id.bead_present_location);
-        locationTV.setText(R.string.location);
-        mListView.addHeaderView(view);
-
-    }
-
     @Override
     public void onResume() {
         super.onResume();
+        this.mAdView.resume();
         Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
     }
 
     @Override
     public void onPause() {
         Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        this.mAdView.pause();
         super.onPause();
     }
 
@@ -206,6 +199,7 @@ public class SearchAndHistoryFragment extends Fragment {
     @Override
     public void onDestroyView() {
         Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        mAdView.destroy();
         super.onDestroyView();
     }
 
@@ -219,7 +213,6 @@ public class SearchAndHistoryFragment extends Fragment {
     public void onDetach() {
         Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         super.onDetach();
-//        mCallback = null;
     }
 
     /**

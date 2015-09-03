@@ -2,21 +2,26 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:orientation="horizontal"
+              android:layout_marginBottom="0dp"
+              android:layout_marginLeft="@dimen/spaceTiny"
+              android:layout_marginRight="@dimen/spaceTiny"
+              android:layout_marginTop="@dimen/spaceTiny"
               android:baselineAligned="false"
+              android:orientation="horizontal"
               tools:context="com.veontomo.bead.BeadSearchActivity">
 
     <fragment
         android:id="@+id/search"
         class="com.veontomo.bead.Fragments.SearchAndHistoryFragment"
         android:layout_width="0dp"
-        android:layout_weight="2"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_weight="2"/>
+
     <fragment
         android:id="@+id/similar"
         class="com.veontomo.bead.Fragments.SimilarBeadFragment"
         android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_weight="1"/>
 
 </LinearLayout>

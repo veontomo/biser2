@@ -3,12 +3,15 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical"
+              android:padding="@dimen/spaceSmall"
+              android:background="@drawable/bead_search_single_pane_bg"
               tools:context="com.veontomo.bead.Fragments.SimilarBeadFragment">
 
     <TextView
         android:id="@+id/color_code"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:textColor="@color/secondary1_light"/>
 
     <ListView
         android:id="@+id/list_similar"

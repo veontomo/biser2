@@ -1,9 +1,9 @@
 package com.veontomo.bead;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,7 +11,7 @@ import android.view.MenuItem;
 import com.veontomo.bead.Fragments.SearchAndHistoryFragment;
 import com.veontomo.bead.Fragments.SimilarBeadFragment;
 
-public class BeadSearchActivity extends Activity implements SearchAndHistoryFragment.OnBeadSearchListener, SimilarBeadFragment.SimilarBeadListener {
+public class BeadSearchActivity extends AppCompatActivity implements SearchAndHistoryFragment.OnBeadSearchListener, SimilarBeadFragment.SimilarBeadListener {
 
     private final String marker = "bead search activity: ";
 
