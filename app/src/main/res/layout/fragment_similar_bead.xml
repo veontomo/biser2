@@ -10,7 +10,8 @@
     <TextView
         android:id="@+id/color_code"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:textColor="@color/secondary1_light"/>
 
     <ListView
         android:id="@+id/list_similar"
