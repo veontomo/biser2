@@ -8,10 +8,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="18sp"
+        android:drawableEnd="@mipmap/circles"
         android:textColor="#d2ff4100"/>
-    <ImageView
-        android:id = "@+id/bead_absent_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
 
 </LinearLayout>

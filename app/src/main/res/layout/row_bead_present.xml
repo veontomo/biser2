@@ -18,6 +18,7 @@
         android:layout_height="wrap_content"
         android:padding="9dp"
         android:textColor="#000000"
+        android:drawableEnd="@mipmap/circles"
         android:textSize="18sp"/>
 
 </LinearLayout>

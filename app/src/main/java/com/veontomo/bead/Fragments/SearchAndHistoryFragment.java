@@ -97,7 +97,6 @@ public class SearchAndHistoryFragment extends Fragment {
         this.mEditText = (EditText) getView().findViewById(R.id.editText);
         this.mListView = (ListView) getView().findViewById(R.id.searchHistory);
         this.mAdapter = new BeadAdapter(getActivity().getApplicationContext(), new ArrayList<Bead>());
-        setUpHeaderView();
         this.mListView.setAdapter(this.mAdapter);
         this.mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -148,25 +147,6 @@ public class SearchAndHistoryFragment extends Fragment {
             BeadFinderTask worker = new BeadFinderTask(new Storage(getActivity().getApplicationContext()), mAdapter, mCallback);
             worker.execute(code);
         }
-
-    }
-
-    /**
-     * Sets up the header of the list view
-     */
-    private void setUpHeaderView() {
-        // without this control, the header gets added every time
-        // the fragment gets restarted
-        if (mListView.getHeaderViewsCount() > 0){
-            return;
-        }
-        View view = View.inflate(getActivity().getApplicationContext(), R.layout.row_bead_present, null);
-        view.setBackgroundColor(793229873);
-        TextView colorTV = (TextView) view.findViewById(R.id.bead_present_color_code);
-        colorTV.setText(R.string.colorCode);
-        TextView locationTV = (TextView) view.findViewById(R.id.bead_present_location);
-        locationTV.setText(R.string.location);
-        mListView.addHeaderView(view);
 
     }
 

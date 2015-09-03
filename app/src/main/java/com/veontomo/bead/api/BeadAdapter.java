@@ -229,7 +229,6 @@ public final class BeadAdapter extends BaseAdapter {
 
     static class HolderBeadAbsent {
         public TextView text;
-        public ImageView image;
     }
 
 }
