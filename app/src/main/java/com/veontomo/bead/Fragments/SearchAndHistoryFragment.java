@@ -139,8 +139,8 @@ public class SearchAndHistoryFragment extends Fragment {
 
         /// initialize ad
         mAdView = (AdView) getActivity().findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
+//        AdRequest adRequest = new AdRequest.Builder().build();
+//        mAdView.loadAd(adRequest);
 
     }
 
