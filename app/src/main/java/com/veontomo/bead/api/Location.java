@@ -19,7 +19,7 @@ public class Location {
 
     @Override
     public String toString() {
-        return this.wing + SEPARATOR + String.valueOf(this.row) + SEPARATOR + String.valueOf(this.col);
+        return this.wing + SEPARATOR + String.valueOf(this.col) + SEPARATOR + String.valueOf(this.row);
     }
 
 
@@ -35,7 +35,7 @@ public class Location {
     public static Location fromString(@NonNull String str) {
         String[] blocks = str.split(SEPARATOR);
         if (blocks.length == 3) {
-            return new Location(blocks[0], Integer.valueOf(blocks[1]), Integer.valueOf(blocks[2]));
+            return new Location(blocks[0], Integer.valueOf(blocks[2]), Integer.valueOf(blocks[1]));
         }
         return null;
     }
