@@ -12,6 +12,4 @@
     // below are names of tokens used to pass values from one activity to another
     <string name="EXTRA_SEARCH_INITIAL" translatable="false">search_init</string>
 
-    <string name="banner_ad_unit_id_TEST" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="banner_ad_unit_id_REAL" translatable="false">ca-app-pub-4140008095219381/1472602152</string>
 </resources>

@@ -130,17 +130,15 @@ public class SearchAndHistoryFragment extends Fragment {
         });
 
         if (this.searchTerms != null) {
-//            Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName() + " INFLATING");
             mAdapter.inflate(searchTerms);
             mAdapter.notifyDataSetChanged();
-        } else {
-//            Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName() + " nothing to INFLATE");
         }
 
         /// initialize ad
         mAdView = (AdView) getActivity().findViewById(R.id.adView);
-//        AdRequest adRequest = new AdRequest.Builder().build();
-//        mAdView.loadAd(adRequest);
+        mAdView.setAdUnitId(Config.AD_UNIT_ID);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
     }
 
