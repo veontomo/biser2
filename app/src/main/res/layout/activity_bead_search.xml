@@ -3,8 +3,8 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:layout_marginBottom="0dp"
-              android:layout_marginLeft="@dimen/spaceTiny"
-              android:layout_marginRight="@dimen/spaceTiny"
+              android:layout_marginLeft="0dp"
+              android:layout_marginRight="0dp"
               android:layout_marginTop="@dimen/spaceTiny"
               android:orientation="vertical"
               tools:context="com.veontomo.bead.BeadSearchActivity">
@@ -13,6 +13,18 @@
         android:id="@+id/search"
         class="com.veontomo.bead.Fragments.SearchAndHistoryFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="@dimen/spaceSmaller"/>
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginLeft="@dimen/spaceTiny"
+        android:layout_marginRight="@dimen/spaceTiny"
+        android:layout_marginTop="@dimen/spaceTiny"
+        android:layout_marginBottom="0dp"
+        tools:layout="@layout/fragment_search_and_history" />
+
+    <LinearLayout
+        android:id="@+id/ad_holder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal"/>
 </LinearLayout>

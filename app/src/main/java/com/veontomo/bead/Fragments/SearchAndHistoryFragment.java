@@ -1,9 +1,7 @@
 package com.veontomo.bead.Fragments;
 
 import android.app.Fragment;
-import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,8 +54,6 @@ public class SearchAndHistoryFragment extends Fragment {
      * String version of all search terms along with corresponding search results.
      */
     private String searchTerms;
-
-    private AdView mAdView;
 
     public SearchAndHistoryFragment() {
         // Required empty public constructor
@@ -146,14 +142,7 @@ public class SearchAndHistoryFragment extends Fragment {
 //        AdRequest adRequest = new AdRequest.Builder().build();
 //        mAdView.loadAd(adRequest);
 
-        mAdView = new AdView(getActivity());
-        mAdView.setAdSize(AdSize.BANNER);
-        mAdView.setAdUnitId(Config.AD_UNIT_ID);
-        if (mAdView.getAdSize() != null || mAdView.getAdUnitId() != null) {
-            AdRequest adRequest = new AdRequest.Builder().build();
-            mAdView.loadAd(adRequest);
-            ((LinearLayout)getActivity().findViewById(R.id.search_and_history_fragment)).addView(mAdView);
-        }
+
 
     }
 
@@ -173,14 +162,14 @@ public class SearchAndHistoryFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        this.mAdView.resume();
+
         //Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
     }
 
     @Override
     public void onPause() {
         // Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
-        this.mAdView.pause();
+
         super.onPause();
     }
 
@@ -208,7 +197,7 @@ public class SearchAndHistoryFragment extends Fragment {
     @Override
     public void onDestroyView() {
 //        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
-        mAdView.destroy();
+
         super.onDestroyView();
     }
 

@@ -24,7 +24,9 @@
         android:layout_marginTop="@dimen/spaceMedium"
         android:layout_weight="1"
         android:drawableEnd="@mipmap/circles"
-        android:paddingStart="@dimen/spaceSmall"
+        android:drawableRight="@mipmap/circles"
+        android:layout_marginLeft="@dimen/spaceSmall"
+        android:layout_marginStart="@dimen/spaceSmall"
         android:textColor="@color/secondary1_light"
         android:textSize="@dimen/textSmall"/>
 

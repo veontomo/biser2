@@ -7,7 +7,11 @@ import android.support.v7.app.AppCompatActivity;
 //import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.LinearLayout;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
 import com.veontomo.bead.Fragments.SearchAndHistoryFragment;
 import com.veontomo.bead.Fragments.SimilarBeadFragment;
 
@@ -34,12 +38,22 @@ public class BeadSearchActivity extends AppCompatActivity implements SearchAndHi
      * a string received from a start-for-result action
      */
     private String onResult;
+    private AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bead_search);
         // Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+
+        mAdView = new AdView(this);
+        mAdView.setAdSize(AdSize.BANNER);
+        mAdView.setAdUnitId(Config.AD_UNIT_ID);
+        if (mAdView.getAdSize() != null || mAdView.getAdUnitId() != null) {
+            AdRequest adRequest = new AdRequest.Builder().build();
+            mAdView.loadAd(adRequest);
+            ((LinearLayout) findViewById(R.id.ad_holder)).addView(mAdView);
+        }
     }
 
     @Override
@@ -62,11 +76,13 @@ public class BeadSearchActivity extends AppCompatActivity implements SearchAndHi
         if (this.onResult != null) {
             this.mSearchFragment.insert(this.onResult);
         }
+        this.mAdView.resume();
     }
 
     @Override
     public void onPause() {
         // Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        this.mAdView.pause();
         super.onPause();
     }
 
@@ -87,6 +103,7 @@ public class BeadSearchActivity extends AppCompatActivity implements SearchAndHi
     @Override
     public void onDestroy() {
         // Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
+        mAdView.destroy();
         super.onDestroy();
     }
 
