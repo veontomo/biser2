@@ -1,15 +1,12 @@
 package com.veontomo.bead.Tasks;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.veontomo.bead.Config;
 import com.veontomo.bead.Storage;
 import com.veontomo.bead.api.BeadSearcher;
 import com.veontomo.bead.api.SimilarBeadAdapter;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -22,7 +19,7 @@ public class SimilarBeadFinderTask extends AsyncTask<String, Void, String[]> {
 
 
     public SimilarBeadFinderTask(Storage storage, SimilarBeadAdapter adapter, BeadSearcher searcher) {
-        Log.i(Config.TAG, "new  SimilarBeadFinderTask task");
+        //Log.i(Config.TAG, "new  SimilarBeadFinderTask task");
         this.storage = storage;
         this.mAdapter = adapter;
         this.searcher = searcher;

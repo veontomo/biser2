@@ -3,7 +3,6 @@ package com.veontomo.bead.Tasks;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.veontomo.bead.Config;
 import com.veontomo.bead.Storage;
@@ -45,7 +44,7 @@ public class BeadLoaderTask extends AsyncTask<String, Void, Void> {
     private final String SEPARATOR = ",";
 
     public BeadLoaderTask(Context context) {
-        Log.i(Config.TAG, "Loading beads");
+        // Log.i(Config.TAG, "Loading beads");
         this.mContext = context;
         this.mStorage = new Storage(context);
     }
@@ -53,14 +52,14 @@ public class BeadLoaderTask extends AsyncTask<String, Void, Void> {
     @Override
     protected Void doInBackground(String... filenames) {
         if (!this.mStorage.beadTableExists()) {
-            Log.i(Config.TAG, "table  NOT exists");
+            //Log.i(Config.TAG, "table  NOT exists");
             for (String filename : filenames) {
-                Log.i(Config.TAG, "Loading from file " + filename);
+                //Log.i(Config.TAG, "Loading from file " + filename);
                 load(filename);
             }
             this.mStorage.saveBeads(this.beads);
         } else {
-            Log.i(Config.TAG, "table exists");
+//            Log.i(Config.TAG, "table exists");
         }
         return null;
     }
@@ -88,14 +87,14 @@ public class BeadLoaderTask extends AsyncTask<String, Void, Void> {
 
             }
         } catch (IOException e) {
-            Log.e(Config.TAG, "exception in getting a line");
-            e.printStackTrace();
+            //Log.e(Config.TAG, "exception in getting a line");
+            //e.printStackTrace();
         }
         try {
             reader.close();
         } catch (IOException e) {
-            Log.e(Config.TAG, "exception in closing a buffered reader");
-            e.printStackTrace();
+//            Log.e(Config.TAG, "exception in closing a buffered reader");
+//            e.printStackTrace();
         }
 
 
@@ -111,7 +110,7 @@ public class BeadLoaderTask extends AsyncTask<String, Void, Void> {
      * Otherwise it is considered as a content of a new line.
      */
     private void updateLocations(@NonNull String line) {
-        Log.i(Config.TAG, "Loading line " + line);
+    //    Log.i(Config.TAG, "Loading line " + line);
         if (line.isEmpty()) {
             return;
         }

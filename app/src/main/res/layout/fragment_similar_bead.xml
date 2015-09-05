@@ -1,20 +1,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical"
-              android:padding="@dimen/spaceSmall"
-              android:background="@drawable/bead_search_single_pane_bg"
-              tools:context="com.veontomo.bead.Fragments.SimilarBeadFragment">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bead_search_single_pane_bg"
+    android:orientation="vertical"
+    android:padding="@dimen/spaceSmall"
+    tools:context="com.veontomo.bead.Fragments.SimilarBeadFragment">
 
     <TextView
         android:id="@+id/color_code"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/secondary1_light"/>
+        android:textColor="@color/secondary1_light" />
 
     <ListView
         android:id="@+id/list_similar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:divider="@null"
+        android:dividerHeight="0dp" />
 </LinearLayout>

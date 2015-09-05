@@ -10,5 +10,5 @@
         android:bottom="@dimen/spaceSmaller"
         android:left="@dimen/spaceTiny"
         android:right="@dimen/spaceTiny"
-        android:top="@dimen/spaceLarge"/>
+        android:top="@dimen/spaceSmall"/>
 </shape>

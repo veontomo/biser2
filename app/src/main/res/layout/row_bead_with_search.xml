@@ -9,8 +9,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawableEnd="@mipmap/ic_search_black_24dp"
+        android:drawableRight="@mipmap/ic_search_black_24dp"
         android:layout_marginBottom="@dimen/spaceSmall"
-        android:layout_marginTop="@dimen/spaceMedium"
+        android:layout_marginTop="@dimen/spaceTiny"
         android:textColor="@color/secondary2"
         android:textSize="@dimen/textSmall"
         />

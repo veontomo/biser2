@@ -10,9 +10,12 @@
         android:id="@+id/bead_absent_color_code"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/spaceSmall"
-        android:layout_marginTop="@dimen/spaceMedium"
+        android:layout_marginBottom="@dimen/spaceTiny"
+        android:layout_marginTop="@dimen/spaceTiny"
+        android:layout_marginStart="@dimen/spaceSmaller"
+        android:layout_marginLeft="@dimen/spaceSmaller"
         android:drawableEnd="@mipmap/circles"
+        android:drawableRight="@mipmap/circles"
         android:textColor="@color/primary_light"
         android:textSize="@dimen/textSmall"/>
 
