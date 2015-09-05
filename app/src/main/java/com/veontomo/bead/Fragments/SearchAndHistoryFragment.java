@@ -3,15 +3,18 @@ package com.veontomo.bead.Fragments;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdSize;
 import com.veontomo.bead.Config;
 import com.veontomo.bead.R;
 import com.veontomo.bead.Storage;
@@ -135,10 +138,22 @@ public class SearchAndHistoryFragment extends Fragment {
         }
 
         /// initialize ad
-        mAdView = (AdView) getActivity().findViewById(R.id.adView);
+//        mAdView = (AdView) getActivity().findViewById(R.id.adView);
+//        mAdView.setAdSize(AdSize.SMART_BANNER);
+//        mAdView.setAdUnitId(Config.AD_UNIT_ID);
+//        Log.i(Config.TAG, "ad unit id to " + mAdView.getAdUnitId());
+//        Log.i(Config.TAG, "ad size " + mAdView.getAdSize());
+//        AdRequest adRequest = new AdRequest.Builder().build();
+//        mAdView.loadAd(adRequest);
+
+        mAdView = new AdView(getActivity());
+        mAdView.setAdSize(AdSize.BANNER);
         mAdView.setAdUnitId(Config.AD_UNIT_ID);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
+        if (mAdView.getAdSize() != null || mAdView.getAdUnitId() != null) {
+            AdRequest adRequest = new AdRequest.Builder().build();
+            mAdView.loadAd(adRequest);
+            ((LinearLayout)getActivity().findViewById(R.id.search_and_history_fragment)).addView(mAdView);
+        }
 
     }
 
@@ -211,6 +226,7 @@ public class SearchAndHistoryFragment extends Fragment {
 
     /**
      * Performs search of given color code
+     *
      * @param str color code to search
      */
     public void insert(String str) {

@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/bead_search_single_pane_bg"
     android:orientation="vertical"
+
     tools:context="com.veontomo.bead.BeadSearchActivity">
 
     <LinearLayout
@@ -24,8 +25,8 @@
             android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/spaceSmall"
             android:layout_marginLeft="@dimen/spaceSmall"
+            android:layout_marginStart="@dimen/spaceSmall"
             android:contentDescription="@string/find_bead"
             android:src="@mipmap/ic_search_black_24dp" />
     </LinearLayout>
@@ -36,12 +37,11 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <!--adUnitId is set programmatically-->
-    <com.google.android.gms.ads.AdView
-        android:id="@+id/adView"
+
+    <LinearLayout
+        android:id="@+id/search_and_history_fragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        ads:adSize="BANNER"/>
-
+        android:orientation="horizontal"/>
 </LinearLayout>
