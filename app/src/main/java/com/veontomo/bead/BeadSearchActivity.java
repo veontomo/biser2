@@ -45,15 +45,6 @@ public class BeadSearchActivity extends AppCompatActivity implements SearchAndHi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bead_search);
         // Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
-
-        mAdView = new AdView(this);
-        mAdView.setAdSize(AdSize.BANNER);
-        mAdView.setAdUnitId(Config.AD_UNIT_ID);
-        if (mAdView.getAdSize() != null || mAdView.getAdUnitId() != null) {
-            AdRequest adRequest = new AdRequest.Builder().build();
-            mAdView.loadAd(adRequest);
-            ((LinearLayout) findViewById(R.id.ad_holder)).addView(mAdView);
-        }
     }
 
     @Override

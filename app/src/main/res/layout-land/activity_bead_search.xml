@@ -1,12 +1,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:layout_margin="0dp"
-              android:baselineAligned="false"
-              android:orientation="horizontal"
-              tools:context="com.veontomo.bead.BeadSearchActivity">
-
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="0dp"
+    android:baselineAligned="false"
+    android:orientation="horizontal"
+    tools:context="com.veontomo.bead.BeadSearchActivity">
 
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -22,18 +21,10 @@
             class="com.veontomo.bead.Fragments.SearchAndHistoryFragment"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
             android:layout_margin="0dp"
+            android:layout_weight="1"
             tools:layout="@layout/fragment_search_and_history" />
-
-        <LinearLayout
-            android:id="@+id/ad_holder"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:orientation="horizontal"/>
     </LinearLayout>
-
 
 
     <fragment
