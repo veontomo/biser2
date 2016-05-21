@@ -8,12 +8,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.google.android.gms.ads.AdSize;
-import com.veontomo.bead.Config;
 import com.veontomo.bead.R;
 import com.veontomo.bead.Storage;
 import com.veontomo.bead.Tasks.BeadFinderTask;
@@ -22,10 +19,6 @@ import com.veontomo.bead.api.Bead;
 import com.veontomo.bead.api.BeadAdapter;
 
 import java.util.ArrayList;
-
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-
 
 /**
  * A simple {@link Fragment} subclass.
