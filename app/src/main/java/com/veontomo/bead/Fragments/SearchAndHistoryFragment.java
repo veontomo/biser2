@@ -31,7 +31,6 @@ public class SearchAndHistoryFragment extends Fragment {
      * name of the key under which search terms are saved in the bundle
      */
     private static final String SEARCH_TERMS_KEY = "searchTerms";
-    private final String marker = "search & history fragment: ";
     /**
      * search button
      */
@@ -152,26 +151,11 @@ public class SearchAndHistoryFragment extends Fragment {
 
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        //Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
-    }
-
-    @Override
-    public void onPause() {
-        // Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
-
-        super.onPause();
-    }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         this.searchTerms = mAdapter.stringify();
-//        Log.i(Config.TAG, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
-//        Log.i(Config.TAG, marker + " saving " + this.searchTerms);
         outState.putString(SEARCH_TERMS_KEY, this.searchTerms);
     }
 
@@ -185,25 +169,6 @@ public class SearchAndHistoryFragment extends Fragment {
         this.mEditText = null;
         this.mButton = null;
         super.onStop();
-    }
-
-    @Override
-    public void onDestroyView() {
-//        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
-
-        super.onDestroyView();
-    }
-
-    @Override
-    public void onDestroy() {
-//        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
-        super.onDestroy();
-    }
-
-    @Override
-    public void onDetach() {
-//        Log.i(Config.TAG, this.marker + Thread.currentThread().getStackTrace()[2].getMethodName());
-        super.onDetach();
     }
 
     /**

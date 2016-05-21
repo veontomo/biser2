@@ -11,7 +11,6 @@ import com.veontomo.bead.Fragments.SimilarBeadFragment;
 
 public class SimilarBeadActivity extends Activity implements SimilarBeadFragment.SimilarBeadListener {
 
-    private final String marker = "similar bead activity: ";
     private SimilarBeadFragment mFragment;
     /**
      * name of the key under which the {@link #mFragment fragment} is stored in the bundle
@@ -96,8 +95,7 @@ public class SimilarBeadActivity extends Activity implements SimilarBeadFragment
     }
 
 
-    @Override
-    public void initialize(String str) {
+    private void initialize(String str) {
         mFragment = (SimilarBeadFragment) getFragmentManager().findFragmentById(R.id.activity_similar);
         mFragment.setCode(str);
     }

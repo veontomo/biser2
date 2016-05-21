@@ -2,7 +2,6 @@ package com.veontomo.bead.Tasks;
 
 import android.os.AsyncTask;
 
-import com.veontomo.bead.Config;
 import com.veontomo.bead.Storage;
 import com.veontomo.bead.api.BeadSearcher;
 import com.veontomo.bead.api.SimilarBeadAdapter;

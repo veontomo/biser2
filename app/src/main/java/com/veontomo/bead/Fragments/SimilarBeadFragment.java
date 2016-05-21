@@ -9,7 +9,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.veontomo.bead.Config;
 import com.veontomo.bead.R;
 import com.veontomo.bead.Storage;
 import com.veontomo.bead.api.BeadSearcher;
@@ -22,8 +21,6 @@ import java.util.ArrayList;
  *
  */
 public class SimilarBeadFragment extends Fragment {
-    private final String marker = "similar bead fragment: ";
-
     /**
      * color codes similar to this one are supposed to be displayed by the fragment
      */
@@ -77,12 +74,8 @@ public class SimilarBeadFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        // Log.i(Config.TAG, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         if (savedInstanceState != null) {
-            // Log.i(Config.TAG, marker + " saved instance is found");
             this.colorCode = savedInstanceState.getString(COLOR_CODE_KEY);
-        } else {
-            // Log.i(Config.TAG, marker + "no saved instance is found");
         }
     }
 
@@ -110,12 +103,8 @@ public class SimilarBeadFragment extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        // Log.i(Config.TAG, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         if (this.colorCode != null) {
-            // Log.i(Config.TAG, marker + " saving code " + this.colorCode);
             outState.putString(COLOR_CODE_KEY, this.colorCode);
-        } else {
-            // Log.i(Config.TAG, marker + " no code to save");
         }
     }
 
@@ -134,19 +123,15 @@ public class SimilarBeadFragment extends Fragment {
      */
     public void updateView(String str) {
         // Log.i(Config.TAG, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
-        String text = getResources().getString(R.string.colors_similar_to).replaceFirst("#", str);;
+        String text = getResources().getString(R.string.colors_similar_to).replaceFirst("#", str);
         ((TextView) getView().findViewById(R.id.color_code)).setText(text);
         findSimilar(str);
 
     }
 
     private void findSimilar(String code) {
-        // Log.i(Config.TAG, marker + Thread.currentThread().getStackTrace()[2].getMethodName());
         if (this.mSearcher == null) {
-            // Log.i(Config.TAG, "create new mSearcher");
             this.mSearcher = new BeadSearcher(new Storage(getActivity().getApplicationContext()));
-        } else {
-            // Log.i(Config.TAG, "mSearcher already exists");
         }
         this.mSearcher.fillInWithSimilar(code, this.mAdapter);
     }
@@ -157,8 +142,6 @@ public class SimilarBeadFragment extends Fragment {
      * its hosting activity.
      */
     public interface SimilarBeadListener {
-        void initialize(String str);
-
         /**
          * action to be executed when a color with given code is clicked
          *

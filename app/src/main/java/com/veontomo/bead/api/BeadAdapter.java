@@ -26,11 +26,6 @@ public final class BeadAdapter extends BaseAdapter {
     private final List<Bead> mItems;
 
     /**
-     * Number of different layouts
-     */
-    private final short NUM_OF_TYPES = 2;
-
-    /**
      * Identifier of the first layout
      */
     private final short TYPE_PRESENT = 0;
@@ -58,7 +53,7 @@ public final class BeadAdapter extends BaseAdapter {
 
     @Override
     public int getViewTypeCount() {
-        return NUM_OF_TYPES;
+        return 2;
     }
 
 

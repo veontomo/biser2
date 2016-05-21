@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 
-import com.veontomo.bead.Config;
 import com.veontomo.bead.Storage;
 import com.veontomo.bead.api.Bead;
 import com.veontomo.bead.api.Location;
@@ -37,12 +36,6 @@ public class BeadLoaderTask extends AsyncTask<String, Void, Void> {
 
     private final ArrayList<Bead> beads = new ArrayList<>();
 
-    /**
-     * A string used to separate color codes in the file describing
-     * location of the beads on the stand
-     */
-    private final String SEPARATOR = ",";
-
     public BeadLoaderTask(Context context) {
         // Log.i(Config.TAG, "Loading beads");
         this.mContext = context;
@@ -52,14 +45,10 @@ public class BeadLoaderTask extends AsyncTask<String, Void, Void> {
     @Override
     protected Void doInBackground(String... filenames) {
         if (!this.mStorage.beadTableExists()) {
-            //Log.i(Config.TAG, "table  NOT exists");
             for (String filename : filenames) {
-                //Log.i(Config.TAG, "Loading from file " + filename);
                 load(filename);
             }
             this.mStorage.saveBeads(this.beads);
-        } else {
-//            Log.i(Config.TAG, "table exists");
         }
         return null;
     }
@@ -110,10 +99,15 @@ public class BeadLoaderTask extends AsyncTask<String, Void, Void> {
      * Otherwise it is considered as a content of a new line.
      */
     private void updateLocations(@NonNull String line) {
-    //    Log.i(Config.TAG, "Loading line " + line);
+        //    Log.i(Config.TAG, "Loading line " + line);
         if (line.isEmpty()) {
             return;
         }
+        /*
+      A string used to separate color codes in the file describing
+      location of the beads on the stand
+     */
+        final String SEPARATOR = ",";
         String[] codes = line.split(SEPARATOR);
         int codeLen = codes.length;
         Bead bead;
